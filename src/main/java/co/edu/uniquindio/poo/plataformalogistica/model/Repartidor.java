@@ -7,8 +7,8 @@ import java.util.Objects;
 /**
  * Entidad Repartidor que representa a las personas encargadas de transportar los paquetes.
  */
-public class Repartidor {
-    private String idRepartidor;
+public class Repartidor extends Persona {
+    private String ID;
     private String nombre;
     private String documento;
     private String telefono;
@@ -18,29 +18,20 @@ public class Repartidor {
     private String vehiculo;
     private String placaVehiculo;
 
-    public Repartidor() {
+    public Repartidor(String nombre, String ID) {
+        super(nombre, ID);
         this.enviosAsignados = new ArrayList<>();
         this.disponibilidad = EstadoRepartidor.INACTIVO;
     }
 
-    public Repartidor(String idRepartidor, String nombre, String documento, String telefono, String zonaCobertura) {
-        this();
-        this.idRepartidor = idRepartidor;
-        this.nombre = nombre;
+    public Repartidor(String ID, String nombre, String documento, String telefono, String zonaCobertura) {
+        super(nombre, ID);
         this.documento = documento;
         this.telefono = telefono;
         this.zonaCobertura = zonaCobertura;
     }
 
     // Getters y Setters
-    public String getIdRepartidor() {
-        return idRepartidor;
-    }
-
-    public void setIdRepartidor(String idRepartidor) {
-        this.idRepartidor = idRepartidor;
-    }
-
     public String getNombre() {
         return nombre;
     }
@@ -150,18 +141,18 @@ public class Repartidor {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Repartidor that = (Repartidor) o;
-        return Objects.equals(idRepartidor, that.idRepartidor);
+        return Objects.equals(ID, that.ID);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idRepartidor);
+        return Objects.hash(ID);
     }
 
     @Override
     public String toString() {
         return "Repartidor{" +
-                "idRepartidor='" + idRepartidor + '\'' +
+                "idRepartidor='" + ID + '\'' +
                 ", nombre='" + nombre + '\'' +
                 ", disponibilidad=" + disponibilidad +
                 ", zonaCobertura='" + zonaCobertura + '\'' +
@@ -170,32 +161,4 @@ public class Repartidor {
     }
 }
 
-/**
- * Enumeración que representa los diferentes estados de disponibilidad de un repartidor.
- */
-enum EstadoRepartidor {
-    ACTIVO("Activo", "Disponible para recibir nuevos envíos"),
-    INACTIVO("Inactivo", "No disponible para recibir envíos"),
-    EN_RUTA("En Ruta", "Realizando entregas actualmente");
 
-    private final String nombre;
-    private final String descripcion;
-
-    EstadoRepartidor(String nombre, String descripcion) {
-        this.nombre = nombre;
-        this.descripcion = descripcion;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    @Override
-    public String toString() {
-        return nombre;
-    }
-}
