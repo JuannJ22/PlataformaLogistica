@@ -8,46 +8,23 @@ import java.util.Objects;
  * Objeto Usuario que representa a las personas que utilizan la plataforma
  * para solicitar y gestionar envíos.
  */
-public class Usuario {
-    private String idUsuario;
-    private String nombreCompleto;
+public class Usuario extends Persona {
     private String correoElectronico;
     private String numeroTelefono;
     private List<Direccion> direccionesFrecuentes;
     private List<MetodoPago> metodosPago;
     private List<Envio> envios;
 
-    public Usuario() {
+    public Usuario(String nombre, String ID, String correoElectronico, String numeroTelefono) {
+        super(nombre,ID);
+        this.correoElectronico = correoElectronico;
+        this.numeroTelefono = numeroTelefono;
         this.direccionesFrecuentes = new ArrayList<>();
         this.metodosPago = new ArrayList<>();
         this.envios = new ArrayList<>();
     }
 
-    public Usuario(String idUsuario, String nombreCompleto, String correoElectronico, String numeroTelefono) {
-        this();
-        this.idUsuario = idUsuario;
-        this.nombreCompleto = nombreCompleto;
-        this.correoElectronico = correoElectronico;
-        this.numeroTelefono = numeroTelefono;
-    }
-
     // Getters y Setters
-    public String getIdUsuario() {
-        return idUsuario;
-    }
-
-    public void setIdUsuario(String idUsuario) {
-        this.idUsuario = idUsuario;
-    }
-
-    public String getNombreCompleto() {
-        return nombreCompleto;
-    }
-
-    public void setNombreCompleto(String nombreCompleto) {
-        this.nombreCompleto = nombreCompleto;
-    }
-
     public String getCorreoElectronico() {
         return correoElectronico;
     }
@@ -120,8 +97,8 @@ public class Usuario {
     @Override
     public String toString() {
         return "Usuario{" +
-                "idUsuario='" + idUsuario + '\'' +
-                ", nombreCompleto='" + nombreCompleto + '\'' +
+                "idUsuario='" + ID + '\'' +
+                ", nombreCompleto='" + nombre + '\'' +
                 ", correoElectronico='" + correoElectronico + '\'' +
                 ", numeroTelefono='" + numeroTelefono + '\'' +
                 '}';
