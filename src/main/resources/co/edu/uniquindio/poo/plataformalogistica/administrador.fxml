@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.chart.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="co.edu.uniquindio.poo.plataformalogistica.veontroller.AdministradorViewController">
+
+    <center>
+        <TabPane fx:id="tabPaneAdmin">
+
+            <!-- ============ USUARIOS (RF-010) ============ -->
+            <tabs>
+                <Tab text="Usuarios">
+                    <content>
+                        <AnchorPane fx:id="paneUsuarios">
+                            <children>
+
+                                <TableView fx:id="tablaUsuarios" layoutX="14.0" layoutY="14.0"
+                                           prefHeight="300.0" prefWidth="600.0">
+                                    <columns>
+                                        <TableColumn fx:id="colUserId" text="ID" prefWidth="100.0"/>
+                                        <TableColumn fx:id="colUserNombre" text="Nombre" prefWidth="180.0"/>
+                                        <TableColumn fx:id="colUserCorreo" text="Correo" prefWidth="200.0"/>
+                                        <TableColumn fx:id="colUserTelefono" text="Teléfono" prefWidth="120.0"/>
+                                    </columns>
+                                </TableView>
+
+                                <Button fx:id="btnCrearUsuario" text="Crear"
+                                        layoutX="14.0" layoutY="330.0"
+                                        onAction="#onCrearUsuario"/>
+
+                                <Button fx:id="btnEditarUsuario" text="Editar"
+                                        layoutX="80.0" layoutY="330.0"
+                                        onAction="#onEditarUsuario"/>
+
+                                <Button fx:id="btnEliminarUsuario" text="Eliminar"
+                                        layoutX="146.0" layoutY="330.0"
+                                        onAction="#onEliminarUsuario"/>
+
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+
+                <!-- ============ REPARTIDORES (RF-011) ============ -->
+                <Tab text="Repartidores">
+                    <content>
+                        <AnchorPane fx:id="paneRepartidores">
+                            <children>
+
+                                <TableView fx:id="tablaRepartidores" layoutX="14.0" layoutY="14.0"
+                                           prefHeight="300.0" prefWidth="600.0">
+                                    <columns>
+                                        <TableColumn fx:id="colRepId" text="ID" prefWidth="80.0"/>
+                                        <TableColumn fx:id="colRepNombre" text="Nombre" prefWidth="180.0"/>
+                                        <TableColumn fx:id="colRepZona" text="Zona" prefWidth="160.0"/>
+                                        <TableColumn fx:id="colRepDisp" text="Disponibilidad" prefWidth="160.0"/>
+                                    </columns>
+                                </TableView>
+
+                                <Button fx:id="btnCrearRepartidor" text="Crear"
+                                        layoutX="14.0" layoutY="330.0"
+                                        onAction="#onCrearRepartidor"/>
+
+                                <Button fx:id="btnEditarRepartidor" text="Editar"
+                                        layoutX="80.0" layoutY="330.0"
+                                        onAction="#onEditarRepartidor"/>
+
+                                <Button fx:id="btnEliminarRepartidor" text="Eliminar"
+                                        layoutX="146.0" layoutY="330.0"
+                                        onAction="#onEliminarRepartidor"/>
+
+                                <Button fx:id="btnCambiarDisponibilidad" text="Cambiar disp."
+                                        layoutX="232.0" layoutY="330.0"
+                                        onAction="#onCambiarDisponibilidad"/>
+
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+
+                <!-- ============ ENVIOS / ASIGNACIÓN (RF-012) ============ -->
+                <Tab text="Envíos">
+                    <content>
+                        <AnchorPane fx:id="paneEnvios">
+                            <children>
+
+                                <!-- Tabla de envíos -->
+                                <TableView fx:id="tablaEnvios" layoutX="14.0" layoutY="14.0"
+                                           prefHeight="220.0" prefWidth="400.0">
+                                    <columns>
+                                        <TableColumn fx:id="colEnvId" text="ID" prefWidth="80.0"/>
+                                        <TableColumn fx:id="colEnvEstado" text="Estado" prefWidth="120.0"/>
+                                        <TableColumn fx:id="colEnvRep" text="Repartidor" prefWidth="180.0"/>
+                                    </columns>
+                                </TableView>
+
+                                <!-- Tabla de repartidores para asignar -->
+                                <TableView fx:id="tablaRepsAsignacion"
+                                           layoutX="430.0" layoutY="14.0"
+                                           prefHeight="220.0" prefWidth="300.0">
+                                    <columns>
+                                        <TableColumn fx:id="colRepAsigId" text="ID" prefWidth="80.0"/>
+                                        <TableColumn fx:id="colRepAsigNombre" text="Nombre" prefWidth="150.0"/>
+                                        <TableColumn fx:id="colRepAsigDisp" text="Disp." prefWidth="70.0"/>
+                                    </columns>
+                                </TableView>
+
+                                <!-- Botones de acciones -->
+                                <Button fx:id="btnAsignarAutomatico" text="Asignar automático"
+                                        layoutX="14.0" layoutY="250.0"
+                                        onAction="#onAsignarAutomatico"/>
+
+                                <Button fx:id="btnAsignarManual" text="Asignar/Reasignar manual"
+                                        layoutX="150.0" layoutY="250.0"
+                                        onAction="#onAsignarManual"/>
+
+                                <Button fx:id="btnCambiarEstadoEnvio" text="Cambiar estado"
+                                        layoutX="350.0" layoutY="250.0"
+                                        onAction="#onCambiarEstadoEnvio"/>
+
+                                <Button fx:id="btnRegistrarIncidencia" text="Registrar incidencia"
+                                        layoutX="470.0" layoutY="250.0"
+                                        onAction="#onRegistrarIncidencia"/>
+
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+
+                <!-- ============ MÉTRICAS (RF-013, RF-014) ============ -->
+                <Tab text="Métricas">
+                    <content>
+                        <AnchorPane fx:id="paneMetricas">
+                            <children>
+
+                                <Label text="Desde:" layoutX="14.0" layoutY="14.0"/>
+                                <DatePicker fx:id="dpDesde" layoutX="60.0" layoutY="10.0"/>
+
+                                <Label text="Hasta:" layoutX="240.0" layoutY="14.0"/>
+                                <DatePicker fx:id="dpHasta" layoutX="290.0" layoutY="10.0"/>
+
+                                <Button fx:id="btnActualizarMetricas" text="Actualizar métricas"
+                                        layoutX="470.0" layoutY="10.0"
+                                        onAction="#onActualizarMetricas"/>
+
+                                <!-- Charts básicos, tú los acomodas en SceneBuilder como quieras -->
+
+                                <LineChart fx:id="chartTiempos"
+                                           layoutX="14.0" layoutY="50.0"
+                                           prefWidth="350.0" prefHeight="200.0">
+                                    <xAxis>
+                                        <CategoryAxis label="Zona"/>
+                                    </xAxis>
+                                    <yAxis>
+                                        <NumberAxis label="Tiempo promedio"/>
+                                    </yAxis>
+                                </LineChart>
+
+                                <BarChart fx:id="chartIngresos"
+                                          layoutX="380.0" layoutY="50.0"
+                                          prefWidth="350.0" prefHeight="200.0">
+                                    <xAxis>
+                                        <CategoryAxis label="Periodo"/>
+                                    </xAxis>
+                                    <yAxis>
+                                        <NumberAxis label="Ingresos"/>
+                                    </yAxis>
+                                </BarChart>
+
+                                <PieChart fx:id="chartServiciosAdicionales"
+                                          layoutX="14.0" layoutY="270.0"
+                                          prefWidth="350.0" prefHeight="200.0"/>
+
+                                <BarChart fx:id="chartIncidenciasZona"
+                                          layoutX="380.0" layoutY="270.0"
+                                          prefWidth="350.0" prefHeight="200.0">
+                                    <xAxis>
+                                        <CategoryAxis label="Zona"/>
+                                    </xAxis>
+                                    <yAxis>
+                                        <NumberAxis label="Incidencias"/>
+                                    </yAxis>
+                                </BarChart>
+
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+            </tabs>
+
+        </TabPane>
+    </center>
+</BorderPane>
