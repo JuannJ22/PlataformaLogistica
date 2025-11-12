@@ -1,10 +1,18 @@
 package co.edu.uniquindio.poo.plataformalogistica.model;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.time.LocalDate;
 
+public abstract class Envio {
+    protected EnviarEnvio metodoEnvio;// (bridge)
+    protected Usuario usuario;
+    protected Repartidor repartidor;
+    protected LocalDate fechaCreacion;
+    protected LocalDate fechaEntrega;
+    protected String destino;
+    protected double precio;
+    protected String ID;
+    protected EstadoEnvio estadoEnvio;
+    protected Paquete paquete;
 /**
  * Objeto Envío que representa cada solicitud de transporte de un paquete.
  */
@@ -29,118 +37,127 @@ public class Envio {
     private String instruccionesEspeciales;
     private Pago pago;
 
-    public Envio() {
-        this.serviciosAdicionales = new ArrayList<>();
-        this.estado = EstadoEnvio.SOLICITADO;
-        this.fechaCreacion = LocalDateTime.now();
+    public Envio(EnviarEnvio metodoEnvio, Usuario usuario, Repartidor repartidor,
+                 LocalDate fechaCreacion, LocalDate fechaEntrega,
+                 String destino, double precio, String ID,
+                 EstadoEnvio estadoEnvio, Paquete paquete) {
+
+        this.metodoEnvio = metodoEnvio;
+        this.usuario = usuario;
+        this.repartidor = repartidor;
+        this.fechaCreacion = fechaCreacion;
+        this.fechaEntrega = fechaEntrega;
+        this.destino = destino;
+        this.precio = precio;
+        this.ID =ID;
+        this.estadoEnvio = estadoEnvio;
+        this.paquete = paquete;
     }
 
-    public Envio(String idEnvio, Direccion origen, Direccion destino, double peso, 
-                double volumen, Usuario usuario) {
-        this();
-        this.idEnvio = idEnvio;
-        this.origen = origen;
-        this.destino = destino;
-        this.peso = peso;
-        this.volumen = volumen;
+    // Acción principal que se conecta al implementador (bridge)
+    public void procesarEnvio() {
+        System.out.println("Procesando envío con ID: " + ID);
+        metodoEnvio.enviar();
+    }
+
+    public EnviarEnvio getMetodoEnvio() {
+        return metodoEnvio;
+    }
+
+    public void setMetodoEnvio(EnviarEnvio metodoEnvio) {
+        this.metodoEnvio = metodoEnvio;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
 
-    // Getters y Setters
-    public String getIdEnvio() {
-        return idEnvio;
+    public Repartidor getRepartidor() {
+        return repartidor;
     }
 
-    public void setIdEnvio(String idEnvio) {
-        this.idEnvio = idEnvio;
+    public void setRepartidor(Repartidor repartidor) {
+        this.repartidor = repartidor;
     }
 
-    public Direccion getOrigen() {
-        return origen;
+    public LocalDate getFechaEntrega() {
+        return fechaEntrega;
     }
 
-    public void setOrigen(Direccion origen) {
-        this.origen = origen;
+    public double getPrecio() {
+        return precio;
     }
 
-    public Direccion getDestino() {
+    public void setPrecio(double precio) {
+        this.precio = precio;
+    }
+
+    public String getID() {
+        return ID;
+    }
+
+    public void setID(String ID) {
+        this.ID = ID;
+    }
+
+    public EstadoEnvio getEstadoEnvio() {
+        return estadoEnvio;
+    }
+
+    public void setEstadoEnvio(EstadoEnvio estadoEnvio) {
+        this.estadoEnvio = estadoEnvio;
+    }
+
+    public Paquete getPaquete() {
+        return paquete;
+    }
+
+    public void setPaquete(Paquete paquete) {
+        this.paquete = paquete;
+    }
+
+    public void setFechaEntrega(LocalDate fechaEntrega) {
+        this.fechaEntrega = fechaEntrega;
+    }
+
+    public String getDestino() {
         return destino;
     }
 
-    public void setDestino(Direccion destino) {
+    public void setDestino(String destino) {
         this.destino = destino;
     }
 
-    public double getPeso() {
-        return peso;
-    }
-
-    public void setPeso(double peso) {
-        this.peso = peso;
-    }
-
-    public double getVolumen() {
-        return volumen;
-    }
-
-    public void setVolumen(double volumen) {
-        this.volumen = volumen;
-    }
-
-    public double getAlto() {
-        return alto;
-    }
-
-    public void setAlto(double alto) {
-        this.alto = alto;
-        calcularVolumen();
-    }
-
-    public double getAncho() {
-        return ancho;
-    }
-
-    public void setAncho(double ancho) {
-        this.ancho = ancho;
-        calcularVolumen();
-    }
-
-    public double getLargo() {
-        return largo;
-    }
-
-    public void setLargo(double largo) {
-        this.largo = largo;
-        calcularVolumen();
-    }
-
-    public double getCosto() {
-        return costo;
-    }
-
-    public void setCosto(double costo) {
-        this.costo = costo;
-    }
-
-    public EstadoEnvio getEstado() {
-        return estado;
-    }
-
-    public void setEstado(EstadoEnvio estado) {
-        this.estado = estado;
-        if (estado == EstadoEnvio.ENTREGADO) {
-            this.fechaEntregaReal = LocalDateTime.now();
-        }
-    }
-
-    public LocalDateTime getFechaCreacion() {
+    public LocalDate getFechaCreacion() {
         return fechaCreacion;
     }
 
-    public void setFechaCreacion(LocalDateTime fechaCreacion) {
+    public void setFechaCreacion(LocalDate fechaCreacion) {
         this.fechaCreacion = fechaCreacion;
     }
 
+    public abstract void mostrarDetalles();
+
+    @Override
+    public String toString() {
+        return "Envio{" +
+                "metodoEnvio=" + metodoEnvio +
+                ", usuario=" + usuario +
+                ", repartidor=" + repartidor +
+                ", fechaCreacion=" + fechaCreacion +
+                ", fechaEntrega=" + fechaEntrega +
+                ", destino='" + destino + '\'' +
+                ", precio=" + precio +
+                ", ID='" + ID + '\'' +
+                ", estadoEnvio='" + estadoEnvio + '\'' +
+                ", paquete=" + paquete +
+                '}';
+    }
+}
     public LocalDateTime getFechaEstimadaEntrega() {
         return fechaEstimadaEntrega;
     }
@@ -205,5 +222,5 @@ public class Envio {
         this.pago = pago;
     }
 
-   
+
 }
