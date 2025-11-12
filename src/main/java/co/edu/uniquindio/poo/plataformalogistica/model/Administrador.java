@@ -103,13 +103,13 @@ public class Administrador {
 
     //setRpeartidor
 
-    public void setRepartidor(String ID, String nuevoNombre, String nuevoDocumento, String nuevoTelefono, boolean nuevaDisponibilidad, String nuevaZonaCobertura) {
+    public void setRepartidor(String ID, String nuevoNombre, String nuevoDocumento, String nuevoTelefono,DisponibilidadRepartidor disponibilidadRepartidor, String nuevaZonaCobertura) {
         for (Repartidor repartidor : listRepartidores) {
             if (repartidor.getID().equals(ID)) {
                 repartidor.setNombre(nuevoNombre);
                 repartidor.setDocumento(nuevoDocumento);
                 repartidor.setTelefono(nuevoTelefono);
-                repartidor.setDisponibilidad(nuevaDisponibilidad);
+                repartidor.setDisponibilidadRepartidor(disponibilidadRepartidor);
                 repartidor.setZonaCobertura(nuevaZonaCobertura);
 
                 System.out.println("Repartidor con ID " + ID + " actualizado correctamente.");
