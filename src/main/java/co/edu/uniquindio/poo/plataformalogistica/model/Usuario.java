@@ -28,7 +28,7 @@ public class Usuario {
         private String correoElectronico;
 
         // Constructor del Builder con los campos obligatorios
-        public Builder(String ID, String nombreCompleto, String telefono, String direccionPrincipal) {
+        public Builder(String ID, String nombreCompleto, String telefono) {
             this.ID= ID;
             this.nombreCompleto = nombreCompleto;
             this.telefono = telefono;
