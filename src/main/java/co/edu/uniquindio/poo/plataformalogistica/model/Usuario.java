@@ -2,105 +2,97 @@ package co.edu.uniquindio.poo.plataformalogistica.model;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
-/**
- * Objeto Usuario que representa a las personas que utilizan la plataforma
- * para solicitar y gestionar envíos.
- */
-public class Usuario extends Persona {
+public class Usuario {
+    private String ID;
+    private String nombreCompleto;
+    private String telefono;
+    private int edad;
     private String correoElectronico;
-    private String numeroTelefono;
-    private List<Direccion> direccionesFrecuentes;
-    private List<MetodoPago> metodosPago;
-    private List<Envio> envios;
 
-    public Usuario(String nombre, String ID, String correoElectronico, String numeroTelefono) {
-        super(nombre,ID);
-        this.correoElectronico = correoElectronico;
-        this.numeroTelefono = numeroTelefono;
-        this.direccionesFrecuentes = new ArrayList<>();
-        this.metodosPago = new ArrayList<>();
-        this.envios = new ArrayList<>();
+    // Constructor (Builder)
+    private Usuario(Builder builder) {
+        this.ID = builder.ID;
+        this.nombreCompleto = builder.nombreCompleto;
+        this.telefono = builder.telefono;
+        this.edad = builder.edad;
+        this.correoElectronico = builder.correoElectronico;
     }
 
-    // Getters y Setters
+    // Clase Builder interna
+    public static class Builder {
+        private String ID;
+        private String nombreCompleto;
+        private String telefono;
+        private int edad;
+        private String correoElectronico;
+
+        // Constructor del Builder con los campos obligatorios
+        public Builder(String ID, String nombreCompleto, String telefono, String direccionPrincipal) {
+            this.ID= ID;
+            this.nombreCompleto = nombreCompleto;
+            this.telefono = telefono;
+        }
+
+        // Métodos opcionales
+        public Builder setEdad(int edad) {
+            this.edad = edad;
+            return this;
+        }
+
+        public Builder setCorreoElectronico(String correoElectronico) {
+            this.correoElectronico = correoElectronico;
+            return this;
+        }
+
+        // METODO CONSTRUIR
+        public Usuario build() {
+            return new Usuario(this);
+        }
+    }
+
+    /**
+     * Metodos getter y setter
+     * @return
+     */
+    public String getID() {
+        return ID;
+    }
+
+    public String getNombreCompleto() {
+        return nombreCompleto;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public int getEdad() {
+        return edad;
+    }
+
     public String getCorreoElectronico() {
         return correoElectronico;
+    }
+
+    public void setID(String ID) {
+        this.ID = ID;
+    }
+
+    public void setNombreCompleto(String nombreCompleto) {
+        this.nombreCompleto = nombreCompleto;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+
+    public void setEdad(int edad) {
+        this.edad = edad;
     }
 
     public void setCorreoElectronico(String correoElectronico) {
         this.correoElectronico = correoElectronico;
     }
-
-    public String getNumeroTelefono() {
-        return numeroTelefono;
-    }
-
-    public void setNumeroTelefono(String numeroTelefono) {
-        this.numeroTelefono = numeroTelefono;
-    }
-
-    public List<Direccion> getDireccionesFrecuentes() {
-        return direccionesFrecuentes;
-    }
-
-    public void setDireccionesFrecuentes(List<Direccion> direccionesFrecuentes) {
-        this.direccionesFrecuentes = direccionesFrecuentes;
-    }
-
-    public List<MetodoPago> getMetodosPago() {
-        return metodosPago;
-    }
-
-    public void setMetodosPago(List<MetodoPago> metodosPago) {
-        this.metodosPago = metodosPago;
-    }
-
-    public List<Envio> getEnvios() {
-        return envios;
-    }
-
-    public void setEnvios(List<Envio> envios) {
-        this.envios = envios;
-    }
-
-    // Métodos de negocio
-    public void agregarDireccion(Direccion direccion) {
-        if (direccion != null && !direccionesFrecuentes.contains(direccion)) {
-            direccionesFrecuentes.add(direccion);
-        }
-    }
-
-    public void eliminarDireccion(Direccion direccion) {
-        direccionesFrecuentes.remove(direccion);
-    }
-
-    public void agregarMetodoPago(MetodoPago metodoPago) {
-        if (metodoPago != null && !metodosPago.contains(metodoPago)) {
-            metodosPago.add(metodoPago);
-        }
-    }
-
-    public void eliminarMetodoPago(MetodoPago metodoPago) {
-        metodosPago.remove(metodoPago);
-    }
-
-    public void agregarEnvio(Envio envio) {
-        if (envio != null && !envios.contains(envio)) {
-            envios.add(envio);
-            envio.setUsuario(this);
-        }
-    }
-
-
-    @Override
-    public String toString() {
-        return "Usuario{" +
-                "idUsuario='" + ID + '\'' +
-                ", nombreCompleto='" + nombre + '\'' +
-                ", correoElectronico='" + correoElectronico + '\'' +
-                ", numeroTelefono='" + numeroTelefono + '\'' +
-                '}';
-    }
 }
+
