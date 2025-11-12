@@ -10,13 +10,13 @@ public abstract class Envio {
     protected LocalDate fechaEntrega;
     protected String destino;
     protected double precio;
-    protected String idEnvio;
+    protected String ID;
     protected String estadoEnvio;
     protected Paquete paquete;
 
     public Envio(EnviarEnvio metodoEnvio, Usuario usuario, Repartidor repartidor,
                  LocalDate fechaCreacion, LocalDate fechaEntrega,
-                 String destino, double precio, String idEnvio,
+                 String destino, double precio, String ID,
                  String estadoEnvio, Paquete paquete) {
 
         this.metodoEnvio = metodoEnvio;
@@ -26,14 +26,14 @@ public abstract class Envio {
         this.fechaEntrega = fechaEntrega;
         this.destino = destino;
         this.precio = precio;
-        this.idEnvio = idEnvio;
+        this.ID =ID;
         this.estadoEnvio = estadoEnvio;
         this.paquete = paquete;
     }
 
     // Acción principal que se conecta al implementador (bridge)
     public void procesarEnvio() {
-        System.out.println("Procesando envío con ID: " + idEnvio);
+        System.out.println("Procesando envío con ID: " + ID);
         metodoEnvio.enviar();
     }
 

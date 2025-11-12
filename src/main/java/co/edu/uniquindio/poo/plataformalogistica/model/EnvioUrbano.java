@@ -6,16 +6,16 @@ public class EnvioUrbano extends Envio {
 
     public EnvioUrbano(EnviarEnvio metodoEnvio, Usuario usuario, Repartidor repartidor,
                        LocalDate fechaCreacion, LocalDate fechaEntrega,
-                       String destino, double precio, String idEnvio,
+                       String destino, double precio, String ID,
                        String estadoEnvio, Paquete paquete) {
         super(metodoEnvio, usuario, repartidor, fechaCreacion, fechaEntrega,
-                destino, precio, idEnvio, estadoEnvio, paquete);
+                destino, precio, ID, estadoEnvio, paquete);
     }
 
     @Override
     public void mostrarDetalles() {
         System.out.println("=== Detalles del Envío Urbano ===");
-        System.out.println("ID Envío: " + idEnvio);
+        System.out.println("ID Envío: " + ID);
         System.out.println("Usuario: " + usuario.getNombreCompleto());
         System.out.println("Repartidor: " + repartidor.getNombre());
         System.out.println("Destino: " + destino);
