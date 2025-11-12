@@ -9,6 +9,7 @@ public class Administrador {
     private String correo;
     private String telefono;
     private List<Usuario> listUsuarios;
+    private List<Repartidor> listRepartidores;
 
     /**
      * Constructor clase administrador
@@ -80,6 +81,57 @@ public class Administrador {
             System.out.println("No se encontró un usuario con el ID: " + ID);
         }
     }
+
+    //CRUD REPARTIDOR
+
+    // Agregar repartidor
+    public void agregarRepartidor(Repartidor repartidor) {
+        listRepartidores.add(repartidor);
+        System.out.println("Repartidor agregado correctamente: " + repartidor.getNombre());
+    }
+
+    //Get repartidor por ID
+    public Repartidor getRepartidor(String id) {
+        for (Repartidor repartidor : listRepartidores) {
+            if (repartidor.getID().equals(id)) {
+                return repartidor;
+            }
+        }
+        System.out.println("No se encontró un repartidor con el ID: " + id);
+        return null;
+    }
+
+    //setRpeartidor
+
+    public void setRepartidor(String ID, String nuevoNombre, String nuevoDocumento, String nuevoTelefono, boolean nuevaDisponibilidad, String nuevaZonaCobertura) {
+        for (Repartidor repartidor : listRepartidores) {
+            if (repartidor.getID().equals(ID)) {
+                repartidor.setNombre(nuevoNombre);
+                repartidor.setDocumento(nuevoDocumento);
+                repartidor.setTelefono(nuevoTelefono);
+                repartidor.setDisponibilidad(nuevaDisponibilidad);
+                repartidor.setZonaCobertura(nuevaZonaCobertura);
+
+                System.out.println("Repartidor con ID " + ID + " actualizado correctamente.");
+                return;
+            }
+        }
+        System.out.println("No se encontró un repartidor con el ID: " + ID);
+    }
+
+    //Eliminar repartidor
+
+    public void eliminarRepartidor(String ID) {
+        for (Repartidor repartidor : listRepartidores) {
+            if (repartidor.getID().equals(ID)) {
+                listRepartidores.remove(repartidor);
+                System.out.println("Repartidor con ID " + ID + " eliminado correctamente.");
+                return;
+            }
+        }
+        System.out.println("No se encontró un repartidor con el ID: " + ID);
+    }
+
 
     //GETTER Y SETTER DE LA CLASE ADMIN
 
