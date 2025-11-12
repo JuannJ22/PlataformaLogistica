@@ -25,13 +25,12 @@ public class Administrador {
         this.nombre = nombre;
         this.correo = correo;
         this.telefono = telefono;
-        this.listUsuarios = new ArrayList<>();
     }
 
     //CURD USUARIO
 
     public void AgregarUsuario(Usuario usuario) {
-        listUsuarios.add(usuario);
+        plataforma.getListUsuarios().add(usuario);
         System.out.println("Usuario agregado correctamente: " + usuario.getNombreCompleto());
     }
 
