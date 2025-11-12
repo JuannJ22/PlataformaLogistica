@@ -7,7 +7,7 @@ public class EnvioUrbano extends Envio {
     public EnvioUrbano(EnviarEnvio metodoEnvio, Usuario usuario, Repartidor repartidor,
                        LocalDate fechaCreacion, LocalDate fechaEntrega,
                        String destino, double precio, String ID,
-                       String estadoEnvio, Paquete paquete) {
+                       EstadoEnvio estadoEnvio, Paquete paquete) {
         super(metodoEnvio, usuario, repartidor, fechaCreacion, fechaEntrega,
                 destino, precio, ID, estadoEnvio, paquete);
     }

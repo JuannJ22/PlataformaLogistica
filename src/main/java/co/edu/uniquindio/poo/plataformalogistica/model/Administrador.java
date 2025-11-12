@@ -8,8 +8,9 @@ public class Administrador {
     private String nombre;
     private String correo;
     private String telefono;
-    private List<Usuario> listUsuarios;
-    private List<Repartidor> listRepartidores;
+
+    // Se pasa la plataforma como singleton para que acceda a ella
+    private final PlataformaLogistica plataforma;
 
     /**
      * Constructor clase administrador
@@ -77,64 +78,85 @@ public class Administrador {
 
         if (eliminado) {
             System.out.println("Usuario con ID " + ID + " eliminado correctamente");
+
+        // Usamos la instancia única de la plataforma
+        this.plataforma = PlataformaLogistica.getInstancia();
+    }
+
+    // =========================
+    // CRUD USUARIO (delegando en PlataformaLogistica)
+    // =========================
+
+    public void agregarUsuario(Usuario usuario) {
+        plataforma.agregarUsuario(usuario);
+        System.out.println("Usuario agregado correctamente: " + usuario.getNombreCompleto());
+    }
+
+    public Usuario getUsuarioPorId(String ID) {
+        Usuario usuario = plataforma.getUsuario(ID);
+        if (usuario == null) {
+            System.out.println("No se encontró un usuario con el ID: " + ID);
+        }
+        return usuario;
+    }
+
+    public void setUsuario(String ID, String nuevoNombre, String nuevoTelefono,
+                           int nuevaEdad, String nuevoCorreo) {
+        Usuario usuario = plataforma.getUsuario(ID);
+        if (usuario != null) {
+            plataforma.setUsuario(ID, nuevoNombre, nuevoTelefono, nuevaEdad, nuevoCorreo);
+            System.out.println("Usuario con ID " + ID + " actualizado correctamente.");
         } else {
             System.out.println("No se encontró un usuario con el ID: " + ID);
         }
     }
 
-    //CRUD REPARTIDOR
+    public void eliminarUsuario(String ID) {
+        plataforma.eliminarUsuario(ID);
+        // (si quieres, aquí puedes imprimir siempre el mensaje, o validar antes)
+        System.out.println("Solicitud de eliminación para usuario con ID " + ID);
+    }
 
-    // Agregar repartidor
+    // =========================
+    // CRUD REPARTIDOR (delegando en PlataformaLogistica)
+    // =========================
+
     public void agregarRepartidor(Repartidor repartidor) {
-        listRepartidores.add(repartidor);
+        plataforma.agregarRepartidor(repartidor);
         System.out.println("Repartidor agregado correctamente: " + repartidor.getNombre());
     }
 
-    //Get repartidor por ID
     public Repartidor getRepartidor(String id) {
-        for (Repartidor repartidor : listRepartidores) {
-            if (repartidor.getID().equals(id)) {
-                return repartidor;
-            }
+        Repartidor repartidor = plataforma.getRepartidor(id);
+        if (repartidor == null) {
+            System.out.println("No se encontró un repartidor con el ID: " + id);
         }
-        System.out.println("No se encontró un repartidor con el ID: " + id);
-        return null;
+        return repartidor;
     }
 
-    //setRpeartidor
+    public void setRepartidor(String ID, String nuevoNombre, String nuevoDocumento,
+                              String nuevoTelefono,
+                              DisponibilidadRepartidor disponibilidadRepartidor,
+                              String nuevaZonaCobertura) {
 
-    public void setRepartidor(String ID, String nuevoNombre, String nuevoDocumento, String nuevoTelefono,DisponibilidadRepartidor disponibilidadRepartidor, String nuevaZonaCobertura) {
-        for (Repartidor repartidor : listRepartidores) {
-            if (repartidor.getID().equals(ID)) {
-                repartidor.setNombre(nuevoNombre);
-                repartidor.setDocumento(nuevoDocumento);
-                repartidor.setTelefono(nuevoTelefono);
-                repartidor.setDisponibilidadRepartidor(disponibilidadRepartidor);
-                repartidor.setZonaCobertura(nuevaZonaCobertura);
-
-                System.out.println("Repartidor con ID " + ID + " actualizado correctamente.");
-                return;
-            }
+        Repartidor repartidor = plataforma.getRepartidor(ID);
+        if (repartidor != null) {
+            plataforma.setRepartidor(ID, nuevoNombre, ID, nuevoTelefono,
+                    disponibilidadRepartidor, nuevaZonaCobertura);
+            System.out.println("Repartidor con ID " + ID + " actualizado correctamente.");
+        } else {
+            System.out.println("No se encontró un repartidor con el ID: " + ID);
         }
-        System.out.println("No se encontró un repartidor con el ID: " + ID);
     }
-
-    //Eliminar repartidor
 
     public void eliminarRepartidor(String ID) {
-        for (Repartidor repartidor : listRepartidores) {
-            if (repartidor.getID().equals(ID)) {
-                listRepartidores.remove(repartidor);
-                System.out.println("Repartidor con ID " + ID + " eliminado correctamente.");
-                return;
-            }
-        }
-        System.out.println("No se encontró un repartidor con el ID: " + ID);
+        plataforma.eliminarRepartidor(ID);
+        System.out.println("Solicitud de eliminación para repartidor con ID " + ID);
     }
 
-
-    //GETTER Y SETTER DE LA CLASE ADMIN
-
+    // =========================
+    // GETTERS Y SETTERS BÁSICOS
+    // =========================
 
     public String getID() {
         return ID;
@@ -167,13 +189,4 @@ public class Administrador {
     public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
-
-    public List<Usuario> getListUsuarios() {
-        return listUsuarios;
-    }
-
-    public void setListUsuarios(List<Usuario> listUsuarios) {
-        this.listUsuarios = listUsuarios;
-    }
 }
-

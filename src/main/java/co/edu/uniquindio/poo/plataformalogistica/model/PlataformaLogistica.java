@@ -10,9 +10,13 @@ public class PlataformaLogistica {
         private String telefono;
         private List<Administrador> listAdministradores;
         private List<Repartidor> listRepartidores;
+        private List<Usuario> listUsuarios;
         private List<Envio> listEnvios;
 
 
+
+        //Strategy usado para asignar el repartidor
+        private AsignacionRepartidorStrategy estrategiaAsignacion;
         // Instancia única (Singleton)
         private static PlataformaLogistica instancia;
 
@@ -29,6 +33,8 @@ public class PlataformaLogistica {
             this.listAdministradores = new ArrayList<>();
             this.listRepartidores = new ArrayList<>();
             this.listEnvios = new ArrayList<>();
+            this.listUsuarios = new ArrayList<>();
+            this.estrategiaAsignacion = new AsignacionPorDisponibilidadStrategy();
 
 
         }
@@ -98,6 +104,13 @@ public class PlataformaLogistica {
 
     public static void setInstancia(PlataformaLogistica instancia) {
         PlataformaLogistica.instancia = instancia;
+    }
+
+    public List<Usuario> getListUsuarios() {
+            return listUsuarios;
+    }
+    public void setListUsuarios(List<Usuario> listUsuarios) {
+            this.listUsuarios = listUsuarios;
     }
 
     //CRUD ADMIN
@@ -222,9 +235,9 @@ public class PlataformaLogistica {
     //VISUALZAR ENVIO
     public Envio getEnvio(String ID) {
         for (Envio envio : listEnvios) {
-            if (Envio.getID().equals(ID)) {
-                System.out.println("Envio encontrado: " + Envio.getNombre());
-                return Envio;
+            if (envio.getID().equals(ID)) {
+                System.out.println("Envio encontrado: " + envio.toString());
+                return envio;
             }
         }
         System.out.println("No se encontró un Envio con el ID: " + ID);
@@ -232,6 +245,98 @@ public class PlataformaLogistica {
     }
 
     //SETTEAR ENVIO
+
+//CRUD USUARIO
+
+    //AGREGAR LIST ADMIN
+
+    public void agregarUsuario(Usuario usuario ) {
+        this.listUsuarios.add(usuario);
+    }
+
+
+    //SET USUARIO (ID, nombre, telefono, edad, correo)
+
+    public void setUsuario(String ID, String nombreCompleto, String telefono, int edad, String correoElectronico) {
+        for (Usuario usuario : listUsuarios) {
+            if (usuario.getID().equals(ID)) {
+                usuario.setNombreCompleto(nombreCompleto);
+                usuario.setTelefono(telefono);
+                usuario.setEdad(edad);
+                usuario.setCorreoElectronico(correoElectronico);
+
+                System.out.println("Administrador con ID " + ID + " actualizado correctamente.");
+            }
+        }
+        System.out.println("No se encontró un administrador con el ID: " + ID);
+    }
+
+    //ELIMINAR USUARIO
+
+    public void eliminarUsuario(String ID) {
+        for (Usuario usuario : listUsuarios) {
+            if (usuario.getID().equals(ID)) {
+                listAdministradores.remove(usuario);
+            }
+        }
+    }
+
+    //GET USUARIO
+
+    public Usuario getUsuario(String ID) {
+        for (Usuario usuario : listUsuarios) {
+            if (usuario.getID().equals(ID)) {
+                System.out.println("Administrador encontrado: " + usuario.getNombreCompleto());
+                return usuario;
+            }
+        }
+        System.out.println("No se encontró un administrador con el ID: " + ID);
+        return null;
+    }
+
+
+
+
+
+    //Asginacion y reasignaion de envios
+
+    public void asignarEnvioAutomatico(String idEnvio) {
+        Envio envio = getEnvio(idEnvio);
+        if (envio == null) {
+            throw new IllegalArgumentException("El envío con ID " + idEnvio + " no existe");
+        }
+
+        // Ajusta si tu enum se llama diferente
+        if (envio.getEstadoEnvio() != EstadoEnvio.SOLICITADO) {
+            throw new IllegalStateException("Solo se pueden asignar envíos en estado SOLICITADO");
+        }
+
+        Repartidor elegido = estrategiaAsignacion.asignar(envio, listRepartidores);
+        if (elegido == null) {
+            throw new IllegalStateException("No hay repartidores disponibles (ACTIVOS)");
+        }
+
+        envio.setRepartidor(elegido);
+        envio.setEstadoEnvio(EstadoEnvio.ASIGNADO);
+    }
+
+
+    public void reasignarEnvioManualmente(String idEnvio, String idRepartidor) {
+        Envio envio = getEnvio(idEnvio);
+        Repartidor repartidor = getRepartidor(idRepartidor);
+
+        if (envio == null || repartidor == null) {
+            throw new IllegalArgumentException("Envío o repartidor no existen");
+        }
+
+        if (repartidor.getDisponibilidadRepartidor() != DisponibilidadRepartidor.ACTIVO) {
+            throw new IllegalStateException("El repartidor no está disponible");
+        }
+
+        envio.setRepartidor(repartidor);
+        envio.setEstadoEnvio(EstadoEnvio.ASIGNADO);
+    }
+
 
 
 }
