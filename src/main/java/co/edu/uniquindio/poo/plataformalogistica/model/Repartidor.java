@@ -6,7 +6,7 @@ public class Repartidor {
     private String nombre;
     private String documento;
     private String telefono;
-    private boolean disponibilidad;
+    private DisponibilidadRepartidor disponibilidadRepartidor;
     private String zonaCobertura;
 
     /**
@@ -16,15 +16,15 @@ public class Repartidor {
      * @param nombre
      * @param documento
      * @param telefono
-     * @param disponibilidad
+     * @param disponibilidadRepartidor
      * @param zonaCobertura
      */
-    public Repartidor(String ID, String nombre, String documento, String telefono, boolean disponibilidad, String zonaCobertura) {
+    public Repartidor(String ID, String nombre, String documento, String telefono, DisponibilidadRepartidor disponibilidadRepartidor, String zonaCobertura) {
         this.ID = ID;
         this.nombre = nombre;
         this.documento = documento;
         this.telefono = telefono;
-        this.disponibilidad = disponibilidad;
+        this.disponibilidadRepartidor = disponibilidadRepartidor;
         this.zonaCobertura = zonaCobertura;
     }
 
@@ -63,12 +63,12 @@ public class Repartidor {
         this.telefono = telefono;
     }
 
-    public boolean isDisponibilidad() {
-        return disponibilidad;
+    public DisponibilidadRepartidor getDisponibilidadRepartidor() {
+        return disponibilidadRepartidor;
     }
 
-    public void setDisponibilidad(boolean disponibilidad) {
-        this.disponibilidad = disponibilidad;
+    public void setDisponibilidadRepartidor(DisponibilidadRepartidor disponibilidadRepartidor) {
+        this.disponibilidadRepartidor = disponibilidadRepartidor;
     }
 
     public String getZonaCobertura() {
