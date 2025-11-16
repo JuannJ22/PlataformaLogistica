@@ -265,10 +265,10 @@ public class PlataformaLogistica {
                 usuario.setEdad(edad);
                 usuario.setCorreoElectronico(correoElectronico);
 
-                System.out.println("Administrador con ID " + ID + " actualizado correctamente.");
+                System.out.println("Usuario con ID " + ID + " actualizado correctamente.");
             }
         }
-        System.out.println("No se encontró un administrador con el ID: " + ID);
+        System.out.println("No se encontró un USUario con el ID: " + ID);
     }
 
     //ELIMINAR USUARIO
@@ -286,11 +286,11 @@ public class PlataformaLogistica {
     public Usuario getUsuario(String ID) {
         for (Usuario usuario : listUsuarios) {
             if (usuario.getID().equals(ID)) {
-                System.out.println("Administrador encontrado: " + usuario.getNombreCompleto());
+                System.out.println("Usuario:: " + usuario.getNombreCompleto());
                 return usuario;
             }
         }
-        System.out.println("No se encontró un administrador con el ID: " + ID);
+        System.out.println("No se encontró un Usuario con el ID: " + ID);
         return null;
     }
 
