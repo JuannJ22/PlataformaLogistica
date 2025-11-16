@@ -36,50 +36,30 @@ public class Administrador {
 
     // VER USUARIO
 
-    public Usuario getUsuarioPorId(String ID) {
-        if (listUsuarios.isEmpty()) {
-            System.out.println("No hay usuariios registrados.");
-        } else {
-            for (Usuario usuario : listUsuarios) {
-                if (usuario.getID().equals(ID)) {
-                    return usuario;
-                }
+    /**
+     * Busca un usuario por su ID dentro de la lista de usuarios de la plataforma.
+     *
+     * @param ID El identificador único del usuario a buscar.
+     * @param plataforma El objeto PlataformaLogistica que contiene la lista de usuarios.
+     * @return El objeto Usuario si se encuentra, o null si no se encuentra.
+     */
+    public Usuario getUsuario(String ID, PlataformaLogistica plataforma) {
+                return plataforma.getUsuario(ID);
             }
-            return null;
-        }
 
-        return null;
-    }
+
 
     //ACTUALIZAR USUARIO
 
-    public void setUsuario(String ID, String nuevoNombre, String nuevoTelefono, int nuevaEdad, String nuevoCorreo) {
-        for (Usuario usuario : listUsuarios) {
-            if (usuario.getID().equals(ID)) {
-
-                // Se actualizan los campos individuales del usuario existente
-                usuario.setNombreCompleto(nuevoNombre);
-                usuario.setTelefono(nuevoTelefono);
-                usuario.setEdad(nuevaEdad);
-                usuario.setCorreoElectronico(nuevoCorreo);
-
-                System.out.println("Usuario con ID " + ID + " actualizado correctamente.");
-                return;
-            }
-        }
-        System.out.println("No se encontró un usuario con el ID: " + ID);
+    public void setUsuario (String ID, String nombreCompleto, String telefono, int edad, String correoElectronico, PlataformaLogistica plataforma) {
+        plataforma.setUsuario(ID, nombreCompleto, telefono, edad, correoElectronico );
     }
 
 
     //ELIMINAR USUARIO
-    public void eliminarUsuario(String ID) {
-        boolean eliminado = listUsuarios.removeIf(usuario -> usuario.getID().equals(ID));
+    public void eliminarUsuario(String ID, PlataformaLogistica plataforma) {
+        plataforma.getListUsuarios().remove(ID);
 
-        if (eliminado) {
-            System.out.println("Usuario con ID " + ID + " eliminado correctamente");
-
-        // Usamos la instancia única de la plataforma
-        this.plataforma = PlataformaLogistica.getInstancia();
     }
 
     // =========================
