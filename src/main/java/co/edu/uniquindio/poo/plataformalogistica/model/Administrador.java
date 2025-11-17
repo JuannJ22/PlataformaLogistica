@@ -1,6 +1,7 @@
 package co.edu.uniquindio.poo.plataformalogistica.model;
-import java.util.ArrayList;
-import java.util.List;
+
+
+import co.edu.uniquindio.poo.plataformalogistica.model.PlataformaLogistica;
 
 public class Administrador {
 
@@ -10,7 +11,7 @@ public class Administrador {
     private String telefono;
 
     // Se pasa la plataforma como singleton para que acceda a ella
-    private final PlataformaLogistica plataforma;
+    plataforma.getInstance();
 
     /**
      * Constructor clase administrador
