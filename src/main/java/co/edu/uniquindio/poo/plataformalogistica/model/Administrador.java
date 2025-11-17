@@ -20,11 +20,13 @@ public class Administrador {
      * @param correo
      * @param telefono
      */
+
     public Administrador(String ID, String nombre, String correo, String telefono) {
         this.ID = ID;
         this.nombre = nombre;
         this.correo = correo;
         this.telefono = telefono;
+        this.plataforma= PlataformaLogistica.getInstancia();
     }
 
     //CURD USUARIO
