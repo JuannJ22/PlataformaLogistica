@@ -1,6 +1,4 @@
 package co.edu.uniquindio.poo.plataformalogistica.model;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Administrador {
 
@@ -9,16 +7,12 @@ public class Administrador {
     private String correo;
     private String telefono;
 
-    // Se pasa la plataforma como singleton para que acceda a ella
+    // Referencia al Singleton (Facade) de la plataforma
+    // Usa el getInstancia() SIN parámetros (ya debiste haber inicializado antes en el bootstrap)
     private final PlataformaLogistica plataforma;
 
     /**
      * Constructor clase administrador
-     *
-     * @param ID
-     * @param nombre
-     * @param correo
-     * @param telefono
      */
 
     public Administrador(String ID, String nombre, String correo, String telefono) {
@@ -26,6 +20,8 @@ public class Administrador {
         this.nombre = nombre;
         this.correo = correo;
         this.telefono = telefono;
+
+ 
         this.plataforma= PlataformaLogistica.getInstancia();
     }
 
@@ -65,7 +61,7 @@ public class Administrador {
     }
 
     // =========================
-    // CRUD USUARIO (delegando en PlataformaLogistica)
+    // CRUD USUARIO (usando el singleton de plataorma logísitca)
     // =========================
 
     public void agregarUsuario(Usuario usuario) {
@@ -73,33 +69,32 @@ public class Administrador {
         System.out.println("Usuario agregado correctamente: " + usuario.getNombreCompleto());
     }
 
-    public Usuario getUsuarioPorId(String ID) {
-        Usuario usuario = plataforma.getUsuario(ID);
+    public Usuario getUsuarioPorId(String id) {
+        Usuario usuario = plataforma.getUsuario(id);
         if (usuario == null) {
-            System.out.println("No se encontró un usuario con el ID: " + ID);
+            System.out.println("No se encontró un usuario con el ID: " + id);
         }
         return usuario;
     }
 
-    public void setUsuario(String ID, String nuevoNombre, String nuevoTelefono,
+    public void setUsuario(String id, String nuevoNombre, String nuevoTelefono,
                            int nuevaEdad, String nuevoCorreo) {
-        Usuario usuario = plataforma.getUsuario(ID);
+        Usuario usuario = plataforma.getUsuario(id);
         if (usuario != null) {
-            plataforma.setUsuario(ID, nuevoNombre, nuevoTelefono, nuevaEdad, nuevoCorreo);
-            System.out.println("Usuario con ID " + ID + " actualizado correctamente.");
+            plataforma.setUsuario(id, nuevoNombre, nuevoTelefono, nuevaEdad, nuevoCorreo);
+            System.out.println("Usuario con ID " + id + " actualizado correctamente.");
         } else {
-            System.out.println("No se encontró un usuario con el ID: " + ID);
+            System.out.println("No se encontró un usuario con el ID: " + id);
         }
     }
 
-    public void eliminarUsuario(String ID) {
-        plataforma.eliminarUsuario(ID);
-        // (si quieres, aquí puedes imprimir siempre el mensaje, o validar antes)
-        System.out.println("Solicitud de eliminación para usuario con ID " + ID);
+    public void eliminarUsuario(String id) {
+        plataforma.eliminarUsuario(id); // NO intentes remove(id) sobre la lista
+        System.out.println("Solicitud de eliminación para usuario con ID " + id);
     }
 
     // =========================
-    // CRUD REPARTIDOR (delegando en PlataformaLogistica)
+    // CRUD REPARTIDOR (delegando del singleton de PlataformaLogistica)
     // =========================
 
     public void agregarRepartidor(Repartidor repartidor) {
@@ -115,59 +110,37 @@ public class Administrador {
         return repartidor;
     }
 
-    public void setRepartidor(String ID, String nuevoNombre, String nuevoDocumento,
+    public void setRepartidor(String id, String nuevoNombre, String nuevoDocumento,
                               String nuevoTelefono,
                               DisponibilidadRepartidor disponibilidadRepartidor,
                               String nuevaZonaCobertura) {
 
-        Repartidor repartidor = plataforma.getRepartidor(ID);
+        Repartidor repartidor = plataforma.getRepartidor(id);
         if (repartidor != null) {
-            plataforma.setRepartidor(ID, nuevoNombre, ID, nuevoTelefono,
+            plataforma.setRepartidor(id, nuevoNombre, nuevoDocumento, nuevoTelefono,
                     disponibilidadRepartidor, nuevaZonaCobertura);
-            System.out.println("Repartidor con ID " + ID + " actualizado correctamente.");
+            System.out.println("Repartidor con ID " + id + " actualizado correctamente.");
         } else {
-            System.out.println("No se encontró un repartidor con el ID: " + ID);
+            System.out.println("No se encontró un repartidor con el ID: " + id);
         }
     }
 
-    public void eliminarRepartidor(String ID) {
-        plataforma.eliminarRepartidor(ID);
-        System.out.println("Solicitud de eliminación para repartidor con ID " + ID);
+    public void eliminarRepartidor(String id) {
+        plataforma.eliminarRepartidor(id);
+        System.out.println("Solicitud de eliminación para repartidor con ID " + id);
     }
 
-    // =========================
-    // GETTERS Y SETTERS BÁSICOS
-    // =========================
+    // GETTERS Y SETTERS
 
-    public String getID() {
-        return ID;
-    }
+    public String getID() { return ID; }
+    public void setID(String ID) { this.ID = ID; }
 
-    public void setID(String ID) {
-        this.ID = ID;
-    }
+    public String getNombre() { return nombre; }
+    public void setNombre(String nombre) { this.nombre = nombre; }
 
-    public String getNombre() {
-        return nombre;
-    }
+    public String getCorreo() { return correo; }
+    public void setCorreo(String correo) { this.correo = correo; }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getCorreo() {
-        return correo;
-    }
-
-    public void setCorreo(String correo) {
-        this.correo = correo;
-    }
-
-    public String getTelefono() {
-        return telefono;
-    }
-
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
-    }
+    public String getTelefono() { return telefono; }
+    public void setTelefono(String telefono) { this.telefono = telefono; }
 }
