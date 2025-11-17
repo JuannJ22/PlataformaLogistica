@@ -6,12 +6,12 @@
 
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="co.edu.uniquindio.poo.plataformalogistica.veontroller.AdministradorViewController">
+            fx:controller="co.edu.uniquindio.poo.plataformalogistica.viewController.AdministradorViewController">
 
     <center>
         <TabPane fx:id="tabPaneAdmin">
 
-            <!-- ============ USUARIOS (RF-010) ============ -->
+
             <tabs>
                 <Tab text="Usuarios">
                     <content>
@@ -45,7 +45,7 @@
                     </content>
                 </Tab>
 
-                <!-- ============ REPARTIDORES (RF-011) ============ -->
+
                 <Tab text="Repartidores">
                     <content>
                         <AnchorPane fx:id="paneRepartidores">
@@ -82,13 +82,12 @@
                     </content>
                 </Tab>
 
-                <!-- ============ ENVIOS / ASIGNACIÓN (RF-012) ============ -->
                 <Tab text="Envíos">
                     <content>
                         <AnchorPane fx:id="paneEnvios">
                             <children>
 
-                                <!-- Tabla de envíos -->
+
                                 <TableView fx:id="tablaEnvios" layoutX="14.0" layoutY="14.0"
                                            prefHeight="220.0" prefWidth="400.0">
                                     <columns>
@@ -98,7 +97,7 @@
                                     </columns>
                                 </TableView>
 
-                                <!-- Tabla de repartidores para asignar -->
+
                                 <TableView fx:id="tablaRepsAsignacion"
                                            layoutX="430.0" layoutY="14.0"
                                            prefHeight="220.0" prefWidth="300.0">
@@ -109,7 +108,7 @@
                                     </columns>
                                 </TableView>
 
-                                <!-- Botones de acciones -->
+
                                 <Button fx:id="btnAsignarAutomatico" text="Asignar automático"
                                         layoutX="14.0" layoutY="250.0"
                                         onAction="#onAsignarAutomatico"/>
@@ -131,7 +130,7 @@
                     </content>
                 </Tab>
 
-                <!-- ============ MÉTRICAS (RF-013, RF-014) ============ -->
+
                 <Tab text="Métricas">
                     <content>
                         <AnchorPane fx:id="paneMetricas">
@@ -147,7 +146,7 @@
                                         layoutX="470.0" layoutY="10.0"
                                         onAction="#onActualizarMetricas"/>
 
-                                <!-- Charts básicos, tú los acomodas en SceneBuilder como quieras -->
+
 
                                 <LineChart fx:id="chartTiempos"
                                            layoutX="14.0" layoutY="50.0"
