@@ -1,0 +1,32 @@
+.login-container {
+    -fx-background-color: linear-gradient(to bottom, #f6f9fc, #e9eef5);
+}
+
+.title {
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1f2d3d;
+}
+
+.subtitle {
+    -fx-font-size: 15px;
+    -fx-text-fill: #4b5563;
+}
+
+.text-field, .password-field {
+    -fx-background-radius: 8px;
+    -fx-padding: 8px 10px;
+    -fx-background-color: #ffffff;
+    -fx-border-color: #d1d5db;
+    -fx-border-radius: 8px;
+}
+
+.primary-button {
+    -fx-background-color: #2563eb;
+    -fx-text-fill: white;
+    -fx-background-radius: 8px;
+    -fx-padding: 8px 12px;
+}
+.primary-button:hover {
+    -fx-background-color: #1d4ed8;
+}
