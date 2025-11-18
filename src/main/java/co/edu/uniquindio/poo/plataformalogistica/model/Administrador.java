@@ -72,14 +72,14 @@ public class Administrador {
         return repartidor;
     }
 
-    public void setRepartidor(String id, String nuevoNombre, String nuevoDocumento,
+    public void setRepartidor(String id, String nuevoNombre,
                               String nuevoTelefono,
                               DisponibilidadRepartidor disponibilidadRepartidor,
                               String nuevaZonaCobertura) {
 
         Repartidor repartidor = plataforma.getRepartidor(id);
         if (repartidor != null) {
-            plataforma.setRepartidor(id, nuevoNombre, nuevoDocumento, nuevoTelefono,
+            plataforma.setRepartidor(id, nuevoNombre, nuevoTelefono,
                     disponibilidadRepartidor, nuevaZonaCobertura);
             System.out.println("Repartidor con ID " + id + " actualizado correctamente.");
         } else {
