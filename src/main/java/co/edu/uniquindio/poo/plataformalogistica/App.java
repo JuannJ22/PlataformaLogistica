@@ -1,12 +1,6 @@
 package co.edu.uniquindio.poo.plataformalogistica;
 
 
-import co.edu.uniquindio.poo.plataformalogistica.auth.AuthService;
-import co.edu.uniquindio.poo.plataformalogistica.auth.InMemoryAuthRepository;
-import co.edu.uniquindio.poo.plataformalogistica.auth.PasswordEncoder;
-import co.edu.uniquindio.poo.plataformalogistica.auth.Sha256PasswordEncoder;
-import co.edu.uniquindio.poo.plataformalogistica.controller.LoginController;
-import co.edu.uniquindio.poo.plataformalogistica.data.DataSeeder;
 import co.edu.uniquindio.poo.plataformalogistica.model.PlataformaLogistica;
 import co.edu.uniquindio.poo.plataformalogistica.viewController.LoginViewController;
 import javafx.application.Application;
@@ -38,9 +32,6 @@ public class App extends Application {
 
         LoginViewController vc = loader.getController();
         vc.setLoginController(loginController);
-
-        stage.setTitle("Login - Plataforma de Logística");
-        stage.setScene(scene);
-        stage.show();
     }
+
 }

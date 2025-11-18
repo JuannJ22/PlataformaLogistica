@@ -56,7 +56,6 @@ public class AdministradorController {
         plataforma.setRepartidor(
                 repartidorModificado.getID(),
                 repartidorModificado.getNombre(),
-                repartidorModificado.getDocumento(),
                 repartidorModificado.getTelefono(),
                 repartidorModificado.getDisponibilidadRepartidor(),
                 repartidorModificado.getZonaCobertura()

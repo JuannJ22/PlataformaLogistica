@@ -172,13 +172,12 @@ public class PlataformaLogistica {
 
     //SET  REPARTIDOR
 
-    public void setRepartidor(String ID, String nuevoNombre, String nuevoID, String nuevoTelefono,
+    public void setRepartidor(String ID, String nuevoNombre, String nuevoTelefono,
                               DisponibilidadRepartidor disponibilidadRepartidor, String nuevaZonaCobertura) {
         for (Repartidor repartidor : listRepartidores) {
             if (repartidor.getID().equals(ID)) {
 
                 repartidor.setNombre(nuevoNombre);
-                repartidor.setID(nuevoID);
                 repartidor.setTelefono(nuevoTelefono);
                 repartidor.setDisponibilidadRepartidor(disponibilidadRepartidor)    ;
                 repartidor.setZonaCobertura(nuevaZonaCobertura);

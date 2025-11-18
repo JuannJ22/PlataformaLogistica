@@ -1,16 +1,20 @@
 package co.edu.uniquindio.poo.plataformalogistica.data;
 
-
-import co.edu.uniquindio.poo.plataformalogistica.auth.Credencial;
-import co.edu.uniquindio.poo.plataformalogistica.auth.InMemoryAuthRepository;
-import co.edu.uniquindio.poo.plataformalogistica.auth.PasswordEncoder;
-import co.edu.uniquindio.poo.plataformalogistica.auth.Rol;
 import co.edu.uniquindio.poo.plataformalogistica.model.*;
 
 import java.time.LocalDate;
 
 /**
- * Clase que se usa para la carga de datos de ejemplo para la plataforma.
+ * Carga de datos de ejemplo para la plataforma.
+ * Esta clase centraliza la creación de usuarios, repartidores y envíos de demostración
+ * para que no existan inicializaciones dispersas.
+ *
+ * <p>Uso recomendado:
+ * <pre>
+ *     PlataformaLogistica.getInstancia("NIT", "Nombre", "Tel");
+ *     DataSeeder.seedIfEmpty();
+ * </pre>
+ * </p>
  */
 public final class DataSeeder {
 
@@ -30,19 +34,21 @@ public final class DataSeeder {
                             "Debe llamarse primero a getInstancia(nit, nombre, telefono)."
             );
         }
-        if (datosCargados) return;
 
-        boolean sinAdmins        = plataforma.getListAdministradores().isEmpty();
-        boolean sinUsuarios      = plataforma.getListUsuarios().isEmpty();
-        boolean sinRepartidores  = plataforma.getListRepartidores().isEmpty();
-        boolean sinEnvios        = plataforma.getListEnvios().isEmpty();
+        if (datosCargados) {
+            return;
+        }
 
-        if (sinAdmins)        cargarAdministradores(plataforma);
-        if (sinUsuarios)      cargarUsuarios(plataforma);
-        if (sinRepartidores)  cargarRepartidores(plataforma);
-        if (sinEnvios)        cargarEnvios(plataforma);
+        boolean sinUsuarios = plataforma.getListUsuarios().isEmpty();
+        boolean sinRepartidores = plataforma.getListRepartidores().isEmpty();
+        boolean sinEnvios = plataforma.getListEnvios().isEmpty();
 
-        datosCargados = true;
+        if (sinUsuarios || sinRepartidores || sinEnvios) {
+            cargarUsuarios(plataforma);
+            cargarRepartidores(plataforma);
+            cargarEnvios(plataforma);
+            datosCargados = true;
+        }
     }
 
     /**
@@ -95,10 +101,13 @@ public final class DataSeeder {
      */
     private static void cargarEnvios(PlataformaLogistica plataforma) {
         Usuario usuario = plataforma.getUsuario("U-001");
-        if (usuario == null) return; // o lanza excepción si quieres que sea obligatorio
-
+        // Sin asignar repartidor de entrada (queda para la asignación automática/manual)
         Repartidor repartidorInicial = null;
+
+        // Implementación Bridge para el envío (ajusta si tienes otras)
         EnviarEnvio metodoEnvio = new EnvioMoto();
+
+        // Paquete de ejemplo (ajusta a tu clase Paquete real)
         Paquete paquete = new Paquete("Caja Mediana", "Paqueton", "2X2", 12.2);
 
         Envio envio1 = new EnvioUrbano(
@@ -117,54 +126,8 @@ public final class DataSeeder {
         if (plataforma.getEnvio(envio1.getID()) == null) {
             plataforma.agregarEnvio(envio1);
         }
+
+        // Si quieres demostrar asignación automática por disponibilidad:
+        // plataforma.asignarEnvioAutomatico("E-001");
     }
-
-    /**
-     * Metodo usado para cargar los administradores que se tendran de base
-     * @param plataforma se vincula la info con plataforma
-     */
-    private static void cargarAdministradores(PlataformaLogistica plataforma) {
-        Administrador admin = new Administrador(
-                "ADM-001",
-                "Administrador General",
-                "admin@plataforma.com",
-                "3000000000"
-        );
-
-        if (plataforma.getAdministrador(admin.getID()) == null) {
-            plataforma.agregarAdministrador(admin);
-        }
-    }
-
-    /**
-     * vincula los usuarios que inician sesion usando el linkedid
-     */
-    public static InMemoryAuthRepository crearAuthRepository(PasswordEncoder encoder) {
-        InMemoryAuthRepository repo = new InMemoryAuthRepository();
-
-        // ADMIN (debe existir ADM-001 en dominio)
-        repo.add(new Credencial(
-                "admin@plataforma.com",
-                encoder.encode("admin123"),
-                Rol.ADMIN,
-                "ADM-001"
-        ));
-
-        // USUARIOS (deben existir U-001 y U-002 en dominio)
-        repo.add(new Credencial(
-                "juanjo@demo.com",
-                encoder.encode("1234"),
-                Rol.USUARIO,
-                "U-001"
-        ));
-        repo.add(new Credencial(
-                "sofia@demo.com",
-                encoder.encode("abcd"),
-                Rol.USUARIO,
-                "U-002"
-        ));
-
-        return repo;
-    }
-
 }

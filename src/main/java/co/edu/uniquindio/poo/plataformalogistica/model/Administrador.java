@@ -14,12 +14,50 @@ public class Administrador {
     /**
      * Constructor clase administrador
      */
+
     public Administrador(String ID, String nombre, String correo, String telefono) {
         this.ID = ID;
         this.nombre = nombre;
         this.correo = correo;
         this.telefono = telefono;
-        this.plataforma = PlataformaLogistica.getInstancia(); // <-- AQUÍ obtienes el singleton
+
+ 
+        this.plataforma= PlataformaLogistica.getInstancia();
+    }
+
+    //CURD USUARIO
+
+    public void AgregarUsuario(Usuario usuario) {
+        plataforma.getListUsuarios().add(usuario);
+        System.out.println("Usuario agregado correctamente: " + usuario.getNombreCompleto());
+    }
+
+    // VER USUARIO
+
+    /**
+     * Busca un usuario por su ID dentro de la lista de usuarios de la plataforma.
+     *
+     * @param ID El identificador único del usuario a buscar.
+     * @param plataforma El objeto PlataformaLogistica que contiene la lista de usuarios.
+     * @return El objeto Usuario si se encuentra, o null si no se encuentra.
+     */
+    public Usuario getUsuario(String ID, PlataformaLogistica plataforma) {
+                return plataforma.getUsuario(ID);
+            }
+
+
+
+    //ACTUALIZAR USUARIO
+
+    public void setUsuario (String ID, String nombreCompleto, String telefono, int edad, String correoElectronico, PlataformaLogistica plataforma) {
+        plataforma.setUsuario(ID, nombreCompleto, telefono, edad, correoElectronico );
+    }
+
+
+    //ELIMINAR USUARIO
+    public void eliminarUsuario(String ID, PlataformaLogistica plataforma) {
+        plataforma.getListUsuarios().remove(ID);
+
     }
 
     // =========================
