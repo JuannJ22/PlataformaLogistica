@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="co.edu.uniquindio.poo.plataformalogistica.viewController.LoginViewController"
+            stylesheets="@login.css">
+
+    <children>
+        <VBox alignment="CENTER" spacing="14.0"
+              AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+              AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0"
+              styleClass="login-container">
+
+            <Label text="Plataforma de Logística" styleClass="title"/>
+            <Label text="Iniciar sesión" styleClass="subtitle"/>
+
+            <TextField fx:id="txtUsuario" promptText="Usuario (correo)" maxWidth="260"/>
+            <PasswordField fx:id="txtContrasena" promptText="Contraseña" maxWidth="260"/>
+
+            <Button fx:id="btnIngresar" text="Ingresar" maxWidth="260" styleClass="primary-button"/>
+
+            <Label fx:id="lblError" textFill="red" wrapText="true" maxWidth="280" alignment="CENTER"/>
+        </VBox>
+    </children>
+</AnchorPane>
