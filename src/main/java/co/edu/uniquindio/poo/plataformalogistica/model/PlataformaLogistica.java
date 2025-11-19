@@ -16,6 +16,7 @@ public class PlataformaLogistica {
         private List<Usuario> listUsuarios;
         private List<Envio> listEnvios;
         private List<Paquete> listPaquetes;
+        private List<Tarifa> listTarifas;
 
 
 
@@ -40,6 +41,7 @@ public class PlataformaLogistica {
             this.listUsuarios = new ArrayList<>();
             this.listPaquetes = new ArrayList<>();
             this.estrategiaAsignacion = new AsignacionPorDisponibilidadStrategy();
+            this.listTarifas = new ArrayList<>();
 
 
         }
@@ -55,7 +57,17 @@ public class PlataformaLogistica {
 
 
         // Getters y Setters
-        public String getNit() {
+
+
+    public List<Tarifa> getListTarifas() {
+        return listTarifas;
+    }
+
+    public void setListTarifas(List<Tarifa> listTarifas) {
+        this.listTarifas = listTarifas;
+    }
+
+    public String getNit() {
             return nit;
         }
 
