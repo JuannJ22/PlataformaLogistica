@@ -1,7 +1,7 @@
 package co.edu.uniquindio.poo.plataformalogistica.dto;
 
 import co.edu.uniquindio.poo.plataformalogistica.model.EstadoEnvio;
-import co.edu.uniquindio.poo.plataformalogistica.model.Tarifa;
+import co.edu.uniquindio.poo.plataformalogistica.model.ServicioAdicional;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -17,5 +17,5 @@ public record EnvioDTO(
         double distanciaKm,
         double precio,
         EstadoEnvio estado,
-        Tarifa tarifa
+        List<ServicioAdicional> servicios
 ) {}
