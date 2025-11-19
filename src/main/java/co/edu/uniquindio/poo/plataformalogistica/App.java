@@ -31,7 +31,7 @@ public class App extends Application {
 
         // 4) Cargar FXML del login
         FXMLLoader loader = new FXMLLoader(
-                getClass().getResource("/co/edu/uniquindio/poo/plataformalogistica/view/LoginView.fxml")
+                getClass().getResource("/co/edu/uniquindio/poo/plataformalogistica/LoginView.fxml")
         );
         Scene scene = new Scene(loader.load());
 

@@ -49,7 +49,7 @@ public class LoginViewController {
 
             if (res.getRol() == Rol.ADMIN) {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource(
-                        "/co/edu/uniquindio/poo/plataformalogistica/view/AdministradorView.fxml"));
+                        "/co/edu/uniquindio/poo/plataformalogistica/administrador.fxml"));
                 Scene scene = new Scene(loader.load());
 
                 // Buscar administrador por linkedId y pasarlo al VC
@@ -62,7 +62,7 @@ public class LoginViewController {
                 stage.show();
             } else {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource(
-                        "/co/edu/uniquindio/poo/plataformalogistica/view/UsuarioView.fxml"));
+                        "/co/edu/uniquindio/poo/plataformalogistica/usuarioView.fxml"));
                 Scene scene = new Scene(loader.load());
 
                 Usuario usuario = plataforma.getUsuario(res.getLinkedId());
