@@ -1,42 +1,39 @@
 package co.edu.uniquindio.poo.plataformalogistica.model;
 
-import java.time.Duration;
+import co.edu.uniquindio.poo.plataformalogistica.dto.TarifaDTO;
+
+import java.util.List;
 
 public class Tarifa {
 
-    private boolean tarifaAdicional;
+    private static final double COSTO_BASE = 8000;
+    private static final double COSTO_POR_KM = 500;
+    private static final double COSTO_POR_KG = 1000;
+    private static final double COSTO_POR_M3 = 2000;
+    private static final double COSTO_PRIORIDAD = 7000;
+    private static final double COSTO_SERVICIO_ADICIONAL = 3500;
 
-    private final PlataformaLogistica plataforma;
+    public TarifaDTO cotizar(double distanciaKm, double pesoKg, double volumenM3,
+                             boolean prioridad, List<ServicioAdicional> serviciosAdicionales) {
 
-    public Tarifa(boolean tarifaAdicional ) {
-        this.tarifaAdicional = tarifaAdicional;
-        this.plataforma= PlataformaLogistica.getInstancia();
-    }
+        double recargoDistancia = distanciaKm * COSTO_POR_KM;
+        double recargoPeso = pesoKg * COSTO_POR_KG;
+        double recargoVolumen = volumenM3 * COSTO_POR_M3;
+        double recargoPrioridad = prioridad ? COSTO_PRIORIDAD : 0;
+        double recargosServicios = (serviciosAdicionales != null ? serviciosAdicionales.size() : 0)
+                * COSTO_SERVICIO_ADICIONAL;
 
-    /**
-     * Calcula el precio base de un envío según:
-     * - Precio base fijo: 10.000
-     * - Si la duración supera las 24 horas: +5.000
-     */
-    public double definirPrecioBase(Envio envio) {
+        double total = COSTO_BASE + recargoDistancia + recargoPeso + recargoVolumen
+                + recargoPrioridad + recargosServicios;
 
-        double precioBase = 10000;
-
-        // Calcular diferencia entre fechas en horas
-        long horasDiferencia = Duration.between(
-                envio.getFechaCreacion().atStartOfDay(),
-                envio.getFechaEntrega().atStartOfDay()
-        ).toHours();
-
-        // Si dura más de 24 horas se suman $5000
-        if (horasDiferencia > 24) {
-            precioBase += 5000;
-        }
-
-        if (tarifaAdicional) {
-            precioBase += 7000;
-        }
-
-        return precioBase;
+        return new TarifaDTO(
+                COSTO_BASE,
+                recargoDistancia,
+                recargoPeso,
+                recargoVolumen,
+                recargoPrioridad,
+                recargosServicios,
+                total
+        );
     }
 }
