@@ -1,31 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
-<?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="co.edu.uniquindio.poo.plataformalogistica.viewController.LoginViewController"
-            stylesheets="@login.css">
+<StackPane xmlns="http://javafx.com/javafx/23"
+           xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="co.edu.uniquindio.poo.plataformalogistica.viewController.LoginViewController"
+           stylesheets="@login.css"
+           styleClass="root">
 
     <children>
-        <VBox alignment="CENTER" spacing="14.0"
-              AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-              AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0"
-              styleClass="login-container">
+        <!-- Tarjeta centrada -->
+        <VBox alignment="CENTER"
+              spacing="18.0"
+              maxWidth="420"
+              styleClass="login-card">
 
-            <Label text="Plataforma de Logística" styleClass="title"/>
-            <Label text="Iniciar sesión" styleClass="subtitle"/>
+            <Label text="Plataforma de Logística"
+                   styleClass="title"/>
 
-            <TextField fx:id="txtUsuario" promptText="Usuario (correo)" maxWidth="260"/>
-            <PasswordField fx:id="txtContrasena" promptText="Contraseña" maxWidth="260"/>
+            <Label text="Iniciar sesión"
+                   styleClass="subtitle"/>
 
-            <Button fx:id="btnIngresar" text="Ingresar" maxWidth="260" styleClass="primary-button"/>
+            <TextField fx:id="txtUsuario"
+                       promptText="Usuario (correo)"
+                       maxWidth="Infinity"
+                       styleClass="input"/>
 
-            <Label fx:id="lblError" textFill="red" wrapText="true" maxWidth="280" alignment="CENTER"/>
+            <PasswordField fx:id="txtContrasena"
+                           promptText="Contraseña"
+                           maxWidth="Infinity"
+                           styleClass="input"/>
+
+            <Button fx:id="btnIngresar"
+                    text="Ingresar"
+                    maxWidth="Infinity"
+                    styleClass="primary-button"/>
+
+            <Label fx:id="lblError"
+                   alignment="CENTER"
+                   maxWidth="Infinity"
+                   wrapText="true"
+                   styleClass="error-label"/>
         </VBox>
     </children>
-</AnchorPane>
+</StackPane>

@@ -6,6 +6,7 @@
 
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
+            stylesheets="@admin.css"
             fx:controller="co.edu.uniquindio.poo.plataformalogistica.viewController.AdministradorViewController">
 
     <center>
