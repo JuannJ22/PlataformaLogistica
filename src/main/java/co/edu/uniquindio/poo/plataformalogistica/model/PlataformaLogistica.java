@@ -45,16 +45,24 @@ public class PlataformaLogistica {
         this.estrategiaAsignacion = new AsignacionPorDisponibilidadStrategy();
     }
 
+    private static final String DEFAULT_NIT = "000000000";
+    private static final String DEFAULT_NOMBRE = "Plataforma Logística";
+    private static final String DEFAULT_TELEFONO = "0000000";
+
     // Inicializa (si hace falta) y retorna la instancia
     public static PlataformaLogistica getInstancia(String nit, String nombre, String telefono) {
-        if (instancia == null) {
-            instancia = new PlataformaLogistica(nit, nombre, telefono);
-        }
-        return instancia;
+        PlataformaLogistica plataforma = getInstancia();
+        plataforma.setNit(nit);
+        plataforma.setNombre(nombre);
+        plataforma.setTelefono(telefono);
+        return plataforma;
     }
 
     // Retorna la instancia ya inicializada
     public static PlataformaLogistica getInstancia() {
+        if (instancia == null) {
+            instancia = new PlataformaLogistica(DEFAULT_NIT, DEFAULT_NOMBRE, DEFAULT_TELEFONO);
+        }
         return instancia;
     }
 
@@ -120,7 +128,9 @@ public class PlataformaLogistica {
                 return;
             }
         }
-        System.out.println("No se encontró un administrador con el ID: " + ID);
+        Administrador nuevoAdministrador = new Administrador(nuevoID, nuevoNombre, Nuevocorreo, nuevoTelefono);
+        listAdministradores.add(nuevoAdministrador);
+        System.out.println("Administrador con ID " + ID + " no existía. Se creó uno nuevo con ID " + nuevoID + ".");
     }
 
     public void eliminarAdministrador(String ID) {
