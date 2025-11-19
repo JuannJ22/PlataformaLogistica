@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
 public class PlataformaLogistica {
 
         private String nit;
@@ -16,6 +17,8 @@ public class PlataformaLogistica {
         private List<Usuario> listUsuarios;
         private List<Envio> listEnvios;
         private List<Paquete> listPaquetes;
+        private List<Pago> listPagos;
+        private List<Incidencia> listIncidencias;
         private List<Tarifa> listTarifas;
 
 
@@ -40,6 +43,8 @@ public class PlataformaLogistica {
             this.listEnvios = new ArrayList<>();
             this.listUsuarios = new ArrayList<>();
             this.listPaquetes = new ArrayList<>();
+            this.listPagos = new ArrayList<>();
+            this.listIncidencias = new ArrayList<>();
             this.estrategiaAsignacion = new AsignacionPorDisponibilidadStrategy();
             this.listTarifas = new ArrayList<>();
 
@@ -128,6 +133,14 @@ public class PlataformaLogistica {
     }
     public void setListUsuarios(List<Usuario> listUsuarios) {
             this.listUsuarios = listUsuarios;
+    }
+
+    public List<Pago> getListPagos() {
+        return listPagos;
+    }
+
+    public List<Incidencia> getListIncidencias() {
+        return listIncidencias;
     }
 
     //CRUD ADMIN
@@ -240,11 +253,7 @@ public class PlataformaLogistica {
     //eliminar envio de la lista
 
     public void eliminarEnvio(String ID) {
-            for (Envio envio : listEnvios) {
-                if(envio.getID().equals(ID)){
-                    listEnvios.remove(envio);
-                }
-
+        listEnvios.removeIf(envio -> envio.getID().equals(ID));
             }
     }
 
@@ -290,9 +299,7 @@ public class PlataformaLogistica {
     //ELIMINAR USUARIO
 
     public void eliminarUsuario(String ID) {
-        for (Usuario usuario : listUsuarios) {
-            if (usuario.getID().equals(ID)) {
-                listAdministradores.remove(usuario);
+        listUsuarios.removeIf(usuario -> usuario.getID().equals(ID));
             }
         }
     }
@@ -364,11 +371,19 @@ public class PlataformaLogistica {
 
                 LocalDate fecha = envio.getFechaEntregaReal();
 
-                if (fecha != null &&
-                        (fecha.isEqual(desde) || fecha.isAfter(desde)) &&
-                        (fecha.isEqual(hasta) || fecha.isBefore(hasta))) {
+                    if (fecha != null &&
+                            (fecha.isEqual(desde) || fecha.isAfter(desde)) &&
+                            (fecha.isEqual(hasta) || fecha.isBefore(hasta))) {
 
-                    String zona = envio.getRepartidor().getZonaCobertura();
+                    Repartidor repartidor = envio.getRepartidor();
+                    if (repartidor == null) {
+                        continue;
+                    }
+
+                    String zona = repartidor.getZonaCobertura();
+                    if (zona == null || zona.isBlank()) {
+                        zona = "Sin zona";
+                    }
 
                     double horas = envio.getTiempoEntregaHoras();
 
@@ -434,6 +449,60 @@ public class PlataformaLogistica {
     }
 
     public Map<String, Integer> calcularServiciosAdicionales(LocalDate desde, LocalDate hasta) {
+        Map<String, Integer> conteo = new HashMap<>();
+        for (Envio envio : listEnvios) {
+            if (envio.getFechaCreacion() == null) continue;
+            if (!estaEnRango(envio.getFechaCreacion(), desde, hasta)) continue;
+            for (ServicioAdicional servicio : envio.getServiciosAdicionales()) {
+                conteo.merge(servicio.name(), 1, Integer::sum);
+            }
+        }
+        return conteo;
+    }
+
+public Map<String, Integer> calcularIncidenciasPorZona(LocalDate desde, LocalDate hasta) {
+    Map<String, Integer> resultado = new HashMap<>();
+    for (Incidencia incidencia : listIncidencias) {
+        if (!estaEnRango(incidencia.getFecha(), desde, hasta)) continue;
+        resultado.merge(incidencia.getZona(), 1, Integer::sum);
+    }
+    return resultado;
+}
+
+public void registrarIncidencia(Envio envio, String descripcion) {
+    if (envio == null) return;
+    String id = "INC-" + (listIncidencias.size() + 1);
+    String zona = envio.getRepartidor() != null ? envio.getRepartidor().getZonaCobertura() : "Sin zona";
+    Incidencia incidencia = new Incidencia(id, envio.getID(), descripcion, LocalDate.now(), zona);
+    listIncidencias.add(incidencia);
+    envio.setEstadoEnvio(EstadoEnvio.INCIDENCIA);
+}
+
+public Pago registrarPago(String idPago, Envio envio, double monto, LocalDate fecha,
+                          MetodoPago metodoPago, EstadoPago estadoPago) {
+    if (envio == null) {
+        throw new IllegalArgumentException("El envío es obligatorio para registrar un pago");
+    }
+    Pago pago = new Pago(idPago, envio.getID(), monto, fecha, metodoPago, estadoPago);
+    listPagos.add(pago);
+    return pago;
+}
+
+public List<Pago> listarPagosPorRango(LocalDate desde, LocalDate hasta) {
+    List<Pago> resultados = new ArrayList<>();
+    for (Pago pago : listPagos) {
+        if (estaEnRango(pago.getFecha(), desde, hasta)) {
+            resultados.add(pago);
+        }
+    }
+    return resultados;
+}
+
+private boolean estaEnRango(LocalDate fecha, LocalDate desde, LocalDate hasta) {
+    if (fecha == null) return false;
+    boolean despues = desde == null || fecha.isEqual(desde) || fecha.isAfter(desde);
+    boolean antes = hasta == null || fecha.isEqual(hasta) || fecha.isBefore(hasta);
+    return despues && antes;
     }
 }
 

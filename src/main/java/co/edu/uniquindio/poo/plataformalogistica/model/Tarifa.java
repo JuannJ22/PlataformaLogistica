@@ -15,6 +15,7 @@ public class Tarifa {
 
     public TarifaDTO cotizar(double distanciaKm, double pesoKg, double volumenM3,
                              boolean prioridad, List<ServicioAdicional> serviciosAdicionales) {
+
         double recargoDistancia = distanciaKm * COSTO_POR_KM;
         double recargoPeso = pesoKg * COSTO_POR_KG;
         double recargoVolumen = volumenM3 * COSTO_POR_M3;
