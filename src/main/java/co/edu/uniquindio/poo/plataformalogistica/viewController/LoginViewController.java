@@ -54,8 +54,8 @@ public class LoginViewController {
 
                 // Buscar administrador por linkedId y pasarlo al VC
                 Administrador admin = plataforma.getAdministrador(res.getLinkedId());
-                // AdministradorViewController adminVC = loader.getController();
-                // adminVC.inicializarDatos(admin);
+                AdministradorViewController adminVC = loader.getController();
+                adminVC.inicializarDatos(admin);
 
                 stage.setTitle("Panel de Administración");
                 stage.setScene(scene);
@@ -66,8 +66,8 @@ public class LoginViewController {
                 Scene scene = new Scene(loader.load());
 
                 Usuario usuario = plataforma.getUsuario(res.getLinkedId());
-                // UsuarioViewController usuarioVC = loader.getController();
-                // usuarioVC.inicializarDatos(usuario);
+                UsuarioViewController usuarioVC = loader.getController();
+                usuarioVC.inicializarDatos(usuario);
 
                 stage.setTitle("Panel de Usuario");
                 stage.setScene(scene);

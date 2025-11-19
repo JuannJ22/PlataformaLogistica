@@ -1,0 +1,128 @@
+/* Fondo general */
+.root {
+    -fx-background-color: linear-gradient(to bottom right, #0f172a, #1d4ed8);
+    -fx-font-family: "Segoe UI", "Roboto", "System";
+}
+
+/* Toolbar superior */
+.toolbar-usuario {
+    -fx-background-color: rgba(15,23,42,0.9);
+    -fx-padding: 8 14 8 14;
+    -fx-spacing: 8;
+}
+
+.toolbar-title {
+    -fx-text-fill: #e5e7eb;
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+}
+
+.toolbar-user {
+    -fx-text-fill: #9ca3af;
+    -fx-font-size: 12px;
+}
+
+/* Botones */
+.button {
+    -fx-background-color: #2563eb;
+    -fx-text-fill: white;
+    -fx-background-radius: 10px;
+    -fx-padding: 6 12 6 12;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: #1d4ed8;
+}
+
+.button:pressed {
+    -fx-background-color: #1e40af;
+}
+
+.secondary-button {
+    -fx-background-color: #e5e7eb;
+    -fx-text-fill: #111827;
+}
+
+.secondary-button:hover {
+    -fx-background-color: #d1d5db;
+}
+
+/* Tarjetas internas */
+.card {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 18px;
+    -fx-padding: 18 20 18 20;
+    -fx-spacing: 12;
+    -fx-effect: dropshadow(gaussian, rgba(15,23,42,0.45), 20, 0.3, 0, 6);
+}
+
+.card-title {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #111827;
+}
+
+/* Tabs (igual estilo que admin) */
+.tab-pane {
+    -fx-background-color: transparent;
+    -fx-tab-min-width: 140px;
+}
+
+.tab-pane:top > .tab-header-area {
+    -fx-padding: 0 24 0 24;
+    -fx-background-color: transparent;
+}
+
+.tab-pane:top > .tab-header-area > .headers-region,
+.tab-pane:top > .tab-header-area > .tab-header-background {
+    -fx-background-color: transparent;
+}
+
+.tab-pane .tab {
+    -fx-background-color: transparent;
+    -fx-background-radius: 12 12 0 0;
+    -fx-padding: 6 18 6 18;
+}
+
+.tab-pane .tab-label {
+    -fx-text-fill: #e5e7eb;
+    -fx-font-size: 13px;
+    -fx-font-weight: 600;
+}
+
+.tab-pane .tab:hover:not(.tab:selected) {
+    -fx-background-color: rgba(15, 23, 42, 0.5);
+}
+
+.tab-pane .tab:selected {
+    -fx-background-color: #ffffff;
+    -fx-background-insets: 0;
+    -fx-background-radius: 12 12 0 0;
+}
+
+.tab-pane .tab:selected .tab-label {
+    -fx-text-fill: #111827;
+}
+
+.tab-pane > .tab-content-area {
+    -fx-background-color: transparent;
+    -fx-padding: 12 12 12 12;
+}
+
+/* Inputs y errores */
+.text-field {
+    -fx-background-radius: 8px;
+    -fx-background-color: #f9fafb;
+    -fx-border-color: #d1d5db;
+    -fx-border-radius: 8px;
+    -fx-padding: 6 8 6 8;
+    -fx-font-size: 12px;
+}
+
+.error-label {
+    -fx-text-fill: #dc2626;
+    -fx-font-size: 11px;
+}
