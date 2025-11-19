@@ -16,7 +16,7 @@ public abstract class Envio {
     protected double pesoKg;
     protected double volumenM3;
     protected boolean prioridad;
-    protected Tarifa tarifa;
+    protected double precio;
     protected String ID;
     protected EstadoEnvio estadoEnvio;
     protected Paquete paquete;
@@ -27,7 +27,7 @@ public abstract class Envio {
                  LocalDate fechaCreacion, LocalDate fechaEntrega,
                  Direccion origen, Direccion destino,
                  double distanciaKm, double pesoKg, double volumenM3,
-                 boolean prioridad, Tarifa tarifa, String ID,
+                 boolean prioridad, double precio, String ID,
                  EstadoEnvio estadoEnvio, Paquete paquete,
                  List<ServicioAdicional> serviciosAdicionales) {
 
@@ -42,7 +42,7 @@ public abstract class Envio {
         this.pesoKg = pesoKg;
         this.volumenM3 = volumenM3;
         this.prioridad = prioridad;
-        this.tarifa = tarifa;
+        this.precio = precio;
         this.ID =ID;
         this.estadoEnvio = estadoEnvio;
         this.paquete = paquete;
@@ -86,12 +86,12 @@ public abstract class Envio {
         return fechaEntrega;
     }
 
-    public Tarifa getTarifa() {
-        return tarifa;
+    public double getPrecio() {
+        return precio;
     }
 
-    public void setTarifa(Tarifa tarifa) {
-        this.tarifa = tarifa;
+    public void setPrecio(double precio) {
+        this.precio = precio;
     }
 
     public String getID() {
@@ -148,12 +148,14 @@ public abstract class Envio {
 
     public List<ServicioAdicional> getServiciosAdicionales() {
         return new ArrayList<>(serviciosAdicionales);
+    }
 
-        public void agregarServicioAdicional(ServicioAdicional servicio) {
-            if (servicio == null) return;
-            if (!serviciosAdicionales.contains(servicio)) {
-                serviciosAdicionales.add(servicio);
-            }
+    public void agregarServicioAdicional(ServicioAdicional servicio) {
+        if (servicio == null) return;
+        if (!serviciosAdicionales.contains(servicio)) {
+            serviciosAdicionales.add(servicio);
+        }
+    }
 
     public LocalDate getFechaCreacion() {
         return fechaCreacion;
@@ -174,7 +176,7 @@ public abstract class Envio {
                 ", fechaCreacion=" + fechaCreacion +
                 ", fechaEntrega=" + fechaEntrega +
                 ", destino='" + (destino != null ? destino.toString() : "") + '\'' +
-                ", precio=" + tarifa +
+                ", precio=" + precio +
                 ", ID='" + ID + '\'' +
                 ", estadoEnvio='" + estadoEnvio + '\'' +
                 ", paquete=" + paquete +

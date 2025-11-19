@@ -25,7 +25,7 @@ public class EnvioUrbano extends Envio {
         System.out.println("Repartidor: " + repartidor.getNombre());
         System.out.println("Origen: " + (origen != null ? origen : ""));
         System.out.println("Destino: " + (destino != null ? destino : ""));
-        System.out.println("Precio: $" + tarifa);
+        System.out.println("Precio: $" + precio);
         System.out.println("Estado: " + estadoEnvio);
         System.out.println("Paquete: " + paquete.getNombre() + " (" + paquete.getPeso() + " kg)");
         System.out.println("Fecha de Creación: " + fechaCreacion);

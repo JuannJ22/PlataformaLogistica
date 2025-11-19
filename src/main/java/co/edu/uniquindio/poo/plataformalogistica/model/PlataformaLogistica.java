@@ -328,7 +328,7 @@ public class PlataformaLogistica {
             if (fecha != null &&
                     (fecha.isEqual(desde) || fecha.isAfter(desde)) &&
                     (fecha.isEqual(hasta) || fecha.isBefore(hasta))) {
-                totalIngresos += envio.getTarifa();
+                totalIngresos += envio.getPrecio();
             }
         }
 
