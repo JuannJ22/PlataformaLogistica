@@ -15,6 +15,7 @@ public class PlataformaLogistica {
         private List<Repartidor> listRepartidores;
         private List<Usuario> listUsuarios;
         private List<Envio> listEnvios;
+        private List<Paquete> listPaquetes;
 
 
 
@@ -37,6 +38,7 @@ public class PlataformaLogistica {
             this.listRepartidores = new ArrayList<>();
             this.listEnvios = new ArrayList<>();
             this.listUsuarios = new ArrayList<>();
+            this.listPaquetes = new ArrayList<>();
             this.estrategiaAsignacion = new AsignacionPorDisponibilidadStrategy();
 
 
@@ -402,6 +404,22 @@ public class PlataformaLogistica {
             resultado.put("totalIngresos", totalIngresos);
             return resultado;
         }
+
+    public List<Paquete> getListPaquetes() {
+        return listPaquetes;
+    }
+
+    public void setListPaquetes(List<Paquete> listPaquetes) {
+        this.listPaquetes = listPaquetes;
+    }
+
+    public AsignacionRepartidorStrategy getEstrategiaAsignacion() {
+        return estrategiaAsignacion;
+    }
+
+    public void setEstrategiaAsignacion(AsignacionRepartidorStrategy estrategiaAsignacion) {
+        this.estrategiaAsignacion = estrategiaAsignacion;
+    }
 
     public Map<String, Integer> calcularServiciosAdicionales(LocalDate desde, LocalDate hasta) {
     }
