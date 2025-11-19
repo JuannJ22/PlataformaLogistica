@@ -97,10 +97,7 @@ public class AdministradorController {
     public void registrarIncidencia(Envio envio, String descripcion) {
         if (envio == null || descripcion == null || descripcion.isBlank()) return;
 
-        // Si tienes entidad Incidencia, aquí la crearías y la agregarías al envío.
-        // Por ahora: solo marcamos estado como INCIDENCIA.
-        envio.setEstadoEnvio(EstadoEnvio.INCIDENCIA);
-        System.out.println("Incidencia registrada en envío " + envio.getID() + ": " + descripcion);
+        plataforma.registrarIncidencia(envio, descripcion);
     }
 
     // ========= RF-013 / RF-014: Métricas (delegadas a PlataformaLogistica) =========

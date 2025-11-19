@@ -1,6 +1,8 @@
 package co.edu.uniquindio.poo.plataformalogistica.model;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class Envio {
     protected EnviarEnvio metodoEnvio;// (bridge)
@@ -8,17 +10,26 @@ public abstract class Envio {
     protected Repartidor repartidor;
     protected LocalDate fechaCreacion;
     protected LocalDate fechaEntrega;
-    protected String destino;
-    protected double precio;
+    protected Direccion origen;
+    protected Direccion destino;
+    protected double distanciaKm;
+    protected double pesoKg;
+    protected double volumenM3;
+    protected boolean prioridad;
+    protected Tarifa tarifa;
     protected String ID;
     protected EstadoEnvio estadoEnvio;
     protected Paquete paquete;
+    protected final List<ServicioAdicional> serviciosAdicionales;
 
 
     public Envio(EnviarEnvio metodoEnvio, Usuario usuario, Repartidor repartidor,
                  LocalDate fechaCreacion, LocalDate fechaEntrega,
-                 String destino, double precio, String ID,
-                 EstadoEnvio estadoEnvio, Paquete paquete) {
+                 Direccion origen, Direccion destino,
+                 double distanciaKm, double pesoKg, double volumenM3,
+                 boolean prioridad, Tarifa tarifa, String ID,
+                 EstadoEnvio estadoEnvio, Paquete paquete,
+                 List<ServicioAdicional> serviciosAdicionales) {
 
         this.metodoEnvio = metodoEnvio;
         this.usuario = usuario;
@@ -26,10 +37,19 @@ public abstract class Envio {
         this.fechaCreacion = fechaCreacion;
         this.fechaEntrega = fechaEntrega;
         this.destino = destino;
-        this.precio = precio;
+        this.origen = origen;
+        this.distanciaKm = distanciaKm;
+        this.pesoKg = pesoKg;
+        this.volumenM3 = volumenM3;
+        this.prioridad = prioridad;
+        this.tarifa = tarifa;
         this.ID =ID;
         this.estadoEnvio = estadoEnvio;
         this.paquete = paquete;
+        this.serviciosAdicionales = new ArrayList<>();
+        if (serviciosAdicionales != null) {
+            this.serviciosAdicionales.addAll(serviciosAdicionales);
+        }
     }
 
     // Acción principal que se conecta al implementador (bridge)
@@ -66,12 +86,12 @@ public abstract class Envio {
         return fechaEntrega;
     }
 
-    public double getPrecio() {
-        return precio;
+    public Tarifa getTarifa() {
+        return tarifa;
     }
 
-    public void setPrecio(double precio) {
-        this.precio = precio;
+    public void setTarifa(Tarifa tarifa) {
+        this.tarifa = tarifa;
     }
 
     public String getID() {
@@ -102,13 +122,38 @@ public abstract class Envio {
         this.fechaEntrega = fechaEntrega;
     }
 
-    public String getDestino() {
-        return destino;
-    }
+    public Direccion getDestino() { return destino; }
 
-    public void setDestino(String destino) {
-        this.destino = destino;
-    }
+    public void setDestino(Direccion destino) { this.destino = destino; }
+
+    public Direccion getOrigen() { return origen; }
+
+    public void setOrigen(Direccion origen) { this.origen = origen; }
+
+    public double getDistanciaKm() { return distanciaKm; }
+
+    public void setDistanciaKm(double distanciaKm) { this.distanciaKm = distanciaKm; }
+
+    public double getPesoKg() { return pesoKg; }
+
+    public void setPesoKg(double pesoKg) { this.pesoKg = pesoKg; }
+
+    public double getVolumenM3() { return volumenM3; }
+
+    public void setVolumenM3(double volumenM3) { this.volumenM3 = volumenM3; }
+
+    public boolean isPrioridad() { return prioridad; }
+
+    public void setPrioridad(boolean prioridad) { this.prioridad = prioridad; }
+
+    public List<ServicioAdicional> getServiciosAdicionales() {
+        return new ArrayList<>(serviciosAdicionales);
+
+        public void agregarServicioAdicional(ServicioAdicional servicio) {
+            if (servicio == null) return;
+            if (!serviciosAdicionales.contains(servicio)) {
+                serviciosAdicionales.add(servicio);
+            }
 
     public LocalDate getFechaCreacion() {
         return fechaCreacion;
@@ -128,8 +173,8 @@ public abstract class Envio {
                 ", repartidor=" + repartidor +
                 ", fechaCreacion=" + fechaCreacion +
                 ", fechaEntrega=" + fechaEntrega +
-                ", destino='" + destino + '\'' +
-                ", precio=" + precio +
+                ", destino='" + (destino != null ? destino.toString() : "") + '\'' +
+                ", precio=" + tarifa +
                 ", ID='" + ID + '\'' +
                 ", estadoEnvio='" + estadoEnvio + '\'' +
                 ", paquete=" + paquete +
