@@ -1,7 +1,10 @@
 package co.edu.uniquindio.poo.plataformalogistica.model;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class PlataformaLogistica {
 
@@ -337,7 +340,71 @@ public class PlataformaLogistica {
     }
 
 
+    
+    public Map<String, Double> calcularTiemposPromedioEntrega(LocalDate desde, LocalDate hasta) {
 
+            Map<String, Double> sumaHorasPorZona = new HashMap<>();
+            Map<String, Integer> conteoPorZona = new HashMap<>();
+
+            for (Envio envio : listEnvios) {
+
+                LocalDate fecha = envio.getFechaEntregaReal();
+
+                if (fecha != null &&
+                        (fecha.isEqual(desde) || fecha.isAfter(desde)) &&
+                        (fecha.isEqual(hasta) || fecha.isBefore(hasta))) {
+
+                    String zona = envio.getRepartidor().getZonaCobertura();
+
+                    double horas = envio.getTiempoEntregaHoras();
+
+                    // Suma las horas
+                    if (!sumaHorasPorZona.containsKey(zona)) {
+                        sumaHorasPorZona.put(zona, horas);
+                        conteoPorZona.put(zona, 1);
+                    } else {
+                        sumaHorasPorZona.put(zona, sumaHorasPorZona.get(zona) + horas);
+                        conteoPorZona.put(zona, conteoPorZona.get(zona) + 1);
+                    }
+                }
+            }
+
+            // Cálculo de promedios
+            Map<String, Double> promedios = new HashMap<>();
+
+            for (String zona : sumaHorasPorZona.keySet()) {
+                double total = sumaHorasPorZona.get(zona);
+                int cantidad = conteoPorZona.get(zona);
+                promedios.put(zona, total / cantidad);
+            }
+
+            return promedios;
+        }
+
+
+    public Map<String, Double> calcularIngresosPorPeriodo(LocalDate desde, LocalDate hasta) {
+
+            Map<String, Double> resultado = new HashMap<>();
+            double totalIngresos = 0.0;
+
+            for (Envio envio : listEnvios) {
+
+                LocalDate fecha = envio.getFechaEntregaReal();
+
+                if (fecha != null &&
+                        (fecha.isEqual(desde) || fecha.isAfter(desde)) &&
+                        (fecha.isEqual(hasta) || fecha.isBefore(hasta))) {
+
+                    totalIngresos += envio.getPrecio();
+                }
+            }
+
+            resultado.put("totalIngresos", totalIngresos);
+            return resultado;
+        }
+
+    public Map<String, Integer> calcularServiciosAdicionales(LocalDate desde, LocalDate hasta) {
+    }
 }
 
 

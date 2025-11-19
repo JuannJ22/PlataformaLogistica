@@ -135,5 +135,22 @@ public abstract class Envio {
                 ", paquete=" + paquete +
                 '}';
     }
+
+    public LocalDate getFechaEntregaReal() {
+        return fechaEntrega; // Se asume que esta fecha es la real
+    }
+
+    public double getTiempoEntregaHoras() {
+
+        if (fechaCreacion == null || fechaEntrega == null) {
+            return 0;
+        }
+
+        long dias = java.time.temporal.ChronoUnit.DAYS.between(fechaCreacion, fechaEntrega);
+
+        return dias * 24.0;
+    }
+
+
 }
 
