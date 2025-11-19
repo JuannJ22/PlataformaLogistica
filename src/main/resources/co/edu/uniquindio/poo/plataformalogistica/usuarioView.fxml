@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns="http://javafx.com/javafx/23"
+            xmlns:fx="http://javafx.com/fxml/1"
+            stylesheets="@usuario.css"
+            fx:controller="co.edu.uniquindio.poo.plataformalogistica.viewController.UsuarioViewController">
+
+    <!-- BARRA SUPERIOR -->
+    <top>
+        <ToolBar styleClass="toolbar-usuario">
+            <Label text="Plataforma de Logística - Usuario" styleClass="toolbar-title"/>
+            <Pane HBox.hgrow="ALWAYS"/>
+            <Label fx:id="lblNombreUsuario" styleClass="toolbar-user"/>
+            <Button text="Cerrar sesión" onAction="#onCerrarSesion" styleClass="secondary-button"/>
+        </ToolBar>
+    </top>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <center>
+        <TabPane fx:id="tabPaneUsuario">
+
+            <!-- TAB PERFIL -->
+            <Tab text="Perfil">
+                <content>
+                    <AnchorPane>
+                        <children>
+                            <VBox spacing="12"
+                                  AnchorPane.topAnchor="10"
+                                  AnchorPane.leftAnchor="10"
+                                  AnchorPane.rightAnchor="10"
+                                  AnchorPane.bottomAnchor="10"
+                                  styleClass="card">
+
+                                <Label text="Mi perfil" styleClass="card-title"/>
+
+                                <GridPane hgap="10" vgap="8">
+                                    <columnConstraints>
+                                        <ColumnConstraints halignment="RIGHT" minWidth="100"/>
+                                        <ColumnConstraints halignment="LEFT" hgrow="ALWAYS"/>
+                                    </columnConstraints>
+
+                                    <children>
+                                        <Label text="ID:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                                        <TextField fx:id="txtId" GridPane.rowIndex="0" GridPane.columnIndex="1" editable="false"/>
+
+                                        <Label text="Nombre completo:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                                        <TextField fx:id="txtNombre" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                                        <Label text="Teléfono:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                                        <TextField fx:id="txtTelefono" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+                                        <Label text="Edad:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                                        <TextField fx:id="txtEdad" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+                                        <Label text="Correo:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+                                        <TextField fx:id="txtCorreo" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+                                    </children>
+                                </GridPane>
+
+                                <Label fx:id="lblErrorPerfil" styleClass="error-label" wrapText="true"/>
+
+                                <HBox spacing="10">
+                                    <Button text="Guardar cambios" onAction="#onGuardarPerfil"/>
+                                </HBox>
+                            </VBox>
+                        </children>
+                    </AnchorPane>
+                </content>
+            </Tab>
+
+            <!-- TAB DIRECCIONES (luego lo llenas) -->
+            <Tab text="Direcciones">
+                <content>
+                    <AnchorPane>
+                        <children>
+                            <VBox spacing="10"
+                                  AnchorPane.topAnchor="10"
+                                  AnchorPane.leftAnchor="10"
+                                  AnchorPane.rightAnchor="10"
+                                  AnchorPane.bottomAnchor="10"
+                                  styleClass="card">
+
+                                <Label text="Direcciones frecuentes" styleClass="card-title"/>
+
+                                <!-- Aquí luego añades tu TableView de Direcciones -->
+                                <Label text="Aquí irá la tabla de direcciones (crear, editar, eliminar)." />
+
+                                <HBox spacing="10">
+                                    <Button text="Agregar" onAction="#onAgregarDireccion"/>
+                                    <Button text="Editar" onAction="#onEditarDireccion"/>
+                                    <Button text="Eliminar" onAction="#onEliminarDireccion" styleClass="secondary-button"/>
+                                </HBox>
+                            </VBox>
+                        </children>
+                    </AnchorPane>
+                </content>
+            </Tab>
+
+            <!-- TAB MÉTODOS DE PAGO (placeholder) -->
+            <Tab text="Métodos de pago">
+                <content>
+                    <AnchorPane>
+                        <children>
+                            <VBox spacing="10"
+                                  AnchorPane.topAnchor="10"
+                                  AnchorPane.leftAnchor="10"
+                                  AnchorPane.rightAnchor="10"
+                                  AnchorPane.bottomAnchor="10"
+                                  styleClass="card">
+
+                                <Label text="Mis métodos de pago" styleClass="card-title"/>
+
+                                <Label text="Aquí irá la tabla de métodos de pago (PSE, Tarjeta, Contraentrega...)" />
+
+                                <HBox spacing="10">
+                                    <Button text="Agregar" onAction="#onAgregarMetodoPago"/>
+                                    <Button text="Eliminar" onAction="#onEliminarMetodoPago" styleClass="secondary-button"/>
+                                </HBox>
+                            </VBox>
+                        </children>
+                    </AnchorPane>
+                </content>
+            </Tab>
+
+            <!-- TAB MIS ENVÍOS (placeholder) -->
+            <Tab text="Mis envíos">
+                <content>
+                    <AnchorPane>
+                        <children>
+                            <VBox spacing="10"
+                                  AnchorPane.topAnchor="10"
+                                  AnchorPane.leftAnchor="10"
+                                  AnchorPane.rightAnchor="10"
+                                  AnchorPane.bottomAnchor="10"
+                                  styleClass="card">
+
+                                <Label text="Mis envíos" styleClass="card-title"/>
+                                <Label text="Aquí luego agregas la tabla de envíos, filtros por fecha/estado y exportar CSV/PDF."/>
+                            </VBox>
+                        </children>
+                    </AnchorPane>
+                </content>
+            </Tab>
+        </TabPane>
+    </center>
+</BorderPane>
